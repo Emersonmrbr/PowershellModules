@@ -1,3 +1,4 @@
+# TODO: Update file 'RegexMap.json' to match the regex map format.
 function Format-RssToAcd {
     [CmdletBinding()]
     param(
