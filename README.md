@@ -10,8 +10,8 @@ This repository serves as a central point for the development and distribution o
 
 The repository is organized into subfolders, each representing a specific PowerShell module or tool. For example:
 
-- [`PlcTools`](PlcTools/): A collection of PowerShell tools and modules focused on PLC programming and automation tasks.
-  - [`RssToAcd`](PlcTools/RssToAcd/): A module for converting RSS files to ACD format using configurable regular expressions.
+- [`PlcTools`](src/PlcTools): A collection of PowerShell tools and modules focused on PLC programming and automation tasks.
+  - [`RssToAcd`](src/PlcTools/RssToAcd): A module for converting RSS files to ACD format using configurable regular expressions.
 
 Each module contains its own scripts, manifests, documentation, and configuration files.
 
