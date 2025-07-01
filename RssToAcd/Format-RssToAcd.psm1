@@ -8,46 +8,46 @@ function Format-RssToAcd {
     )
 
     if (-Not (Test-Path $FilePath)) {
-        Write-Error "Arquivo '$FilePath' não encontrado."
+        Write-Error "File '$FilePath' not found."
         return
     }
 
-    # Caminho fixo do RegexMap no diretório do módulo
+    # Fixed path to RegexMap in the module directory
     $regexFile = Join-Path $PSScriptRoot 'RegexMap.json'
 
 
     if (-Not (Test-Path $regexFile)) {
-        Write-Error "Arquivo de regex '$regexFile' não encontrado."
+        Write-Error "Regex file '$regexFile' not found."
         return
     }
 
     $jsonContent = Get-Content $regexFile -Raw
     if ([string]::IsNullOrWhiteSpace($jsonContent)) {
-        Write-Error "O arquivo de regex '$regexFile' está vazio."
+        Write-Error "The regex file '$regexFile' is empty."
         return
     }
     try {
         $regexList = $jsonContent | ConvertFrom-Json
     }
     catch {
-        Write-Error "Erro ao analisar o arquivo JSON '$regexFile': $_"
+        Write-Error "Error parsing the JSON file '$regexFile': $_"
         return
     }
 
     if ($CreateBackup) {
         $backupPath = "$FilePath.bak"
         Copy-Item $FilePath $backupPath -Force
-        Write-Verbose "Backup criado em: $backupPath"
+        Write-Verbose "Backup created at: $backupPath"
     }
 
     $content = Get-Content $FilePath -Raw
 
     foreach ($regex in $regexList) {
-        Write-Verbose "Substituindo: $($regex.Pattern) ➝ $($regex.Replacement)"
+        Write-Verbose "Replacing: $($regex.Pattern) ➝ $($regex.Replacement)"
         $content = $content -replace $regex.Pattern, $regex.Replacement
     }
     Set-Content $FilePath $content -Encoding UTF8
 
-    Write-Host "`n[OK] Substituições concluídas no arquivo $FilePath"
+    Write-Host "`n[OK] Replacements completed in file $FilePath"
 }
 Export-ModuleMember -Function Format-RssToAcd

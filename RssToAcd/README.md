@@ -1,28 +1,28 @@
 # 📦 Format-RssToAcd
 
-Ferramenta PowerShell para realizar substituições em massa em arquivos XML usando expressões regulares pré-configuradas.  
-Ideal para automatizar ajustes de versões, autores, datas e demais campos em arquivos de configuração RSS para sistemas ACD.
+PowerShell tool for performing bulk replacements in XML files using pre-configured regular expressions.  
+Ideal for automating updates of versions, authors, dates, and other fields in RSS configuration files for ACD systems.
 
 ---
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
-- **Windows PowerShell 5.1** ou superior
-- Permissão para execução de scripts (`Set-ExecutionPolicy RemoteSigned` ou equivalente)
+- **Windows PowerShell 5.1** or higher
+- Permission to run scripts (`Set-ExecutionPolicy RemoteSigned` or equivalent)
 
 ---
 
-## 📦 Instalação
+## 📦 Installation
 
-Clone este repositório ou baixe os arquivos diretamente.
+Clone this repository or download the files directly.
 
-Copie a pasta `Format-RssToAcd` contendo os seguintes arquivos para:
+Copy the `Format-RssToAcd` folder containing the following files to:
 
 ```
-C:\Users\<SeuUsuario>\Documents\WindowsPowerShell\Modules\
+C:\Users\<YourUser>\Documents\WindowsPowerShell\Modules\
 ```
 
-**Conteúdo da pasta:**
+**Folder contents:**
 
 ```
 Format-RssToAcd\
@@ -32,7 +32,7 @@ Format-RssToAcd\
 └── Install-Format-RssToAcd.ps1
 ```
 
-Para instalar via script:
+To install via script:
 
 ```powershell
 .\Install-Format-RssToAcd.ps1
@@ -40,32 +40,32 @@ Para instalar via script:
 
 ---
 
-## 🚀 Como usar
+## 🚀 How to use
 
-Importe o módulo:
+Import the module:
 
 ```powershell
 Import-Module Format-RssToAcd
 ```
 
-Execute a função passando o arquivo XML a ser processado:
+Run the function, passing the XML file to be processed:
 
 ```powershell
-Format-RssToAcd -FilePath "C:\Caminho\Para\config.xml" -CreateBackup
+Format-RssToAcd -FilePath "C:\Path\To\config.xml" -CreateBackup
 ```
 
-**Parâmetros:**
+**Parameters:**
 
-- `-FilePath` (obrigatório) — caminho completo do arquivo XML
-- `-CreateBackup` (opcional) — cria um arquivo `.bak` antes de sobrescrever
+- `-FilePath` (required) — full path to the XML file
+- `-CreateBackup` (optional) — creates a `.bak` file before overwriting
 
 ---
 
-## 📑 Configurando RegexMap.json
+## 📑 Configuring RegexMap.json
 
-Todas as expressões regulares e substituições são configuradas no arquivo `RegexMap.json`, no mesmo diretório do módulo.
+All regular expressions and replacements are configured in the `RegexMap.json` file, located in the same directory as the module.
 
-**Exemplo:**
+**Example:**
 
 ```json
 [
@@ -80,14 +80,14 @@ Todas as expressões regulares e substituições são configuradas no arquivo `R
 ]
 ```
 
-Você pode adicionar ou remover padrões conforme a necessidade.
+You can add or remove patterns as needed.
 
 ---
 
-## 📂 Estrutura de diretórios recomendada
+## 📂 Recommended directory structure
 
 ```
-C:\Users\<SeuUsuario>\Documents\WindowsPowerShell\Modules\
+C:\Users\<YourUser>\Documents\WindowsPowerShell\Modules\
 └── Format-RssToAcd\
     ├── Format-RssToAcd.psm1
     ├── Format-RssToAcd.psd1
@@ -97,13 +97,118 @@ C:\Users\<SeuUsuario>\Documents\WindowsPowerShell\Modules\
 
 ---
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT) — sinta-se livre para usar, modificar e distribuir.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) — feel free to use, modify, and distribute.
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Author# 📦 Format-RssToAcd
+
+PowerShell tool for performing bulk replacements in XML files using pre-configured regular expressions.  
+Ideal for automating updates of versions, authors, dates, and other fields in RSS configuration files for ACD systems.
+
+---
+
+## 📋 Prerequisites
+
+- **Windows PowerShell 5.1** or higher
+- Permission to run scripts (`Set-ExecutionPolicy RemoteSigned` or equivalent)
+
+---
+
+## 📦 Installation
+
+Clone this repository or download the files directly.
+
+Copy the `Format-RssToAcd` folder containing the following files to:
+
+```
+C:\Users\<YourUser>\Documents\WindowsPowerShell\Modules\
+```
+
+**Folder contents:**
+
+```
+Format-RssToAcd\
+├── Format-RssToAcd.psm1
+├── Format-RssToAcd.psd1
+├── RegexMap.json
+└── Install-Format-RssToAcd.ps1
+```
+
+To install via script:
+
+```powershell
+.\Install-Format-RssToAcd.ps1
+```
+
+---
+
+## 🚀 How to use
+
+Import the module:
+
+```powershell
+Import-Module Format-RssToAcd
+```
+
+Run the function, passing the XML file to be processed:
+
+```powershell
+Format-RssToAcd -FilePath "C:\Path\To\config.xml" -CreateBackup
+```
+
+**Parameters:**
+
+- `-FilePath` (required) — full path to the XML file
+- `-CreateBackup` (optional) — creates a `.bak` file before overwriting
+
+---
+
+## 📑 Configuring RegexMap.json
+
+All regular expressions and replacements are configured in the `RegexMap.json` file, located in the same directory as the module.
+
+**Example:**
+
+```json
+[
+  {
+    "Pattern": "<version>.*?</version>",
+    "Replacement": "<version>2.0.0</version>"
+  },
+  {
+    "Pattern": "<author>.*?</author>",
+    "Replacement": "<author>Emerson Brito</author>"
+  }
+]
+```
+
+You can add or remove patterns as needed.
+
+---
+
+## 📂 Recommended directory structure
+
+```
+C:\Users\<YourUser>\Documents\WindowsPowerShell\Modules\
+└── Format-RssToAcd\
+    ├── Format-RssToAcd.psm1
+    ├── Format-RssToAcd.psd1
+    ├── RegexMap.json
+    └── Install-Format-RssToAcd.ps1
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) — feel free to use, modify, and distribute.
+
+---
+
+## 👨‍💻 Author
 
 **Emerson Brito**  
-[LinkedIn](https://www.linkedin.com/in/seuusuario)
+[LinkedIn](https://www.linkedin.com/in/emersonbrito)

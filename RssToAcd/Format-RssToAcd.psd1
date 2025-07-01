@@ -5,7 +5,7 @@
     CompanyName       = 'Núcleo MAP'
     Copyright         = '(c) 2025 Emerson Brito. All rights reserved.'
     ModuleVersion     = '1.0.0'
-    Description       = 'Ferramentas para manipulação de arquivos XML usando regex no PowerShell.'
+    Description       = 'Tools for manipulating XML files using regex in PowerShell.'
     RootModule        = 'Format-RssToAcd.psm1'
     FunctionsToExport = @('Format-RssToAcd')
     CmdletsToExport   = @()

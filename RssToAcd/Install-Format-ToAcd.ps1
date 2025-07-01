@@ -1,15 +1,15 @@
-# Caminho de instalação do usuário
+# User's module installation path
 $modulePath = "$env:USERPROFILE\Documents\PowerShell\Modules\Format-RssToAcd"
 
-# Cria a pasta se não existir
+# Create the folder if it doesn't exist
 if (-Not (Test-Path $modulePath)) {
     New-Item -ItemType Directory -Path $modulePath | Out-Null
-    Write-Host "Pasta criada em: $modulePath"
+    Write-Host "Folder created at: $modulePath"
 }
 
-# Copia os arquivos do diretório atual para o destino
+# Copy the files from the current directory to the destination
 Copy-Item -Path ".\Format-RssToAcd.psm1", ".\Format-RssToAcd.psd1" -Destination $modulePath -Force
 
-Write-Host "`n✅ Módulo FormatToAcd instalado em $modulePath"
-Write-Host "ℹ️ Para carregar o módulo em sua sessão atual, execute:"
-Write-Host "`nImport-Module FormatToAcd`n"
+Write-Host "`n✅ Format-RssToAcd module installed at $modulePath"
+Write-Host "ℹ️ To load the module in your current session, run:"
+Write-Host "`nImport-Module Format-RssToAcd`n"
