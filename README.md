@@ -1,6 +1,6 @@
-# PlcTools
+# PowershellModules
 
-**PlcTools** is an open and modular project aimed at bringing together various PowerShell modules focused on automation, integration, and data manipulation in industrial environments, especially related to PLCs (Programmable Logic Controllers).
+**PowershellModules** is an open and modular project aimed at bringing together various PowerShell modules focused on automation, integration, and data manipulation in industrial environments, especially related to PLCs (Programmable Logic Controllers).
 
 ## Overview
 
@@ -8,8 +8,12 @@ This repository serves as a central point for the development and distribution o
 
 ## Project Structure
 
-- Each PowerShell module is organized in its own folder, containing scripts, manifests, documentation, and specific configuration files.
-- The project already includes the `RssToAcd` module, which converts RSS files to the ACD format using configurable regular expressions.
+The repository is organized into subfolders, each representing a specific PowerShell module or tool. For example:
+
+- [`PlcTools`](PlcTools/): A collection of PowerShell tools and modules focused on PLC programming and automation tasks.
+  - [`RssToAcd`](PlcTools/RssToAcd/): A module for converting RSS files to ACD format using configurable regular expressions.
+
+Each module contains its own scripts, manifests, documentation, and configuration files.
 
 ## How to contribute
 
