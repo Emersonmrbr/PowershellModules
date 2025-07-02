@@ -1,14 +1,14 @@
 [
   {
-    "Pattern": "<version>.*?</version>",
-    "Replacement": "<version>2.0.0</version>"
+    "Pattern": "\\{::\\[(\\w+)\\](\\w+):(\\d+)\\/(\\d+)\\}",
+    "Replacement": "{::[$1]$2[$3].$4}"
   },
   {
-    "Pattern": "<author>.*?</author>",
-    "Replacement": "<author>Emerson Brito</author>"
+    "Pattern": "\\{::\\[(\\w+)\\](\\w+):(\\d+)\\}",
+    "Replacement": "{::[$1]$2[$3]}"
   },
   {
-    "Pattern": "<date>.*?</date>",
-    "Replacement": "<date>2025-07-01</date>"
+    "Pattern": "\\{::\\[(\\w+)\\](\\w+):(\\d+)\\.(\\w+)\\}",
+    "Replacement": "{::[$1]$2[$3].$4}"
   }
 ]
