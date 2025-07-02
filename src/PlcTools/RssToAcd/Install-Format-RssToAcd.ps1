@@ -10,6 +10,6 @@ if (-Not (Test-Path $modulePath)) {
 # Copy the files from the current directory to the destination
 Copy-Item -Path ".\Format-RssToAcd.psm1", ".\Format-RssToAcd.psd1" -Destination $modulePath -Force
 
-Write-Host "`n✅ Format-RssToAcd module installed at $modulePath"
-Write-Host "ℹ️ To load the module in your current session, run:"
-Write-Host "`nImport-Module Format-RssToAcd`n"
+Write-Host "Format-RssToAcd module installed at $modulePath"
+Write-Host "To load the module in your current session, run:"
+Write-Host "Import-Module Format-RssToAcd"
