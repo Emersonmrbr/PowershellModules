@@ -103,10 +103,11 @@ function Format-RssToAcd {
       if (-not $Quiet) { Write-Verbose "Processing file: $($file.FullName)" }
       # Detect encoding (simple UTF8 BOM check, fallback to Default)
       $rawBytes = [System.IO.File]::ReadAllBytes($file.FullName)
-      $encoding = if ($rawBytes.Length -ge 3 -and $rawBytes[0] -eq 0xEF -and $rawBytes[1] -eq 0xBB -and $rawBytes[2] -eq 0xBF) { 'UTF8' } else { 'Default' }
+      $encoding = if ($rawBytes.Length -ge 3 -and $rawBytes[0] -eq 0xEF -and $rawBytes[1] -eq 0xBB -and $rawBytes[2] -eq 0xBF) { 'UTF8' } else { 'ASCII' }
       $content = Get-Content $file.FullName -Raw
       $originalContent = $content
       $regexApplied = @()
+      $totalReplacements = 0
       foreach ($regex in $regexList) {
         if (-not $regex.PSObject.Properties.Match('Pattern') -or -not $regex.PSObject.Properties.Match('Replacement')) {
           Write-Error "Invalid regex entry in '$regexFile': $($regex | ConvertTo-Json)"
@@ -116,42 +117,59 @@ function Format-RssToAcd {
           Write-Error "Each regex entry must have 'Pattern' and 'Replacement'."
           continue
         }
-        $newContent = $content -replace $regex.Pattern, $regex.Replacement
-        if ($newContent -ne $content) {
+        # Count how many occurrences will be replaced
+        $elementMatches = [regex]::Matches($content, $regex.Pattern)
+        $countMatches = $elementMatches.Count
+        if ($countMatches -gt 0) {
           $regexApplied += $regex.Pattern
-          if (-not $Quiet) { Write-Verbose "Applied: $($regex.Pattern) ➝ $($regex.Replacement)" }
+          $totalReplacements += $countMatches
+          if (-not $Quiet) { Write-Verbose "Applied: $($regex.Pattern) ➝ $($regex.Replacement) ($countMatches replacement(s))" }
         }
-        $content = $newContent
+        $content = $content -replace $regex.Pattern, $regex.Replacement
       }
       $changed = $content -ne $originalContent
       if ($changed -and $PSCmdlet.ShouldProcess($file.FullName, "Update file with regex replacements")) {
-        Set-Content $file $content -Encoding $encoding -Force
+        if ($encoding -eq 'UTF8') {
+          Set-Content $file $content -Encoding UTF8 -Force
+        }
+        else {
+          Set-Content $file $content -Force
+        }
         if (-not $Quiet) { Write-Verbose "[INFO] File '$($file.Name)' processed and updated." }
       }
       elseif (-not $changed) {
         if (-not $Quiet) { Write-Verbose "[INFO] File '$($file.Name)' processed but no changes were made." }
       }
       $results += [PSCustomObject]@{
-        File         = $file.FullName
-        Changed      = $changed
-        RegexApplied = $regexApplied
+        File             = $file.FullName
+        Changed          = $changed
+        RegexApplied     = $regexApplied
+        RegexCount       = $regexApplied.Count
+        ReplacementCount = $totalReplacements
+      }
+      if (-not $Quiet) {
+        Write-Host "[$($file.Name)] Total regex replacements: $totalReplacements"
       }
     }
     catch {
       Write-Error "Failed to process file '$($file.FullName)': $_"
       $results += [PSCustomObject]@{
-        File         = $file.FullName
-        Changed      = $false
-        RegexApplied = @()
-        Error        = $_.Exception.Message
+        File             = $file.FullName
+        Changed          = $false
+        RegexApplied     = @()
+        RegexCount       = 0
+        ReplacementCount = 0
+        Error            = $_.Exception.Message
       }
       continue
     }
   }
 
   $changedCount = ($results | Where-Object { $_.Changed }).Count
+  $totalRegex = ($results | Measure-Object -Property ReplacementCount -Sum).Sum
   if (-not $Quiet) {
     Write-Host "[OK] [$changedCount] file(s) updated in path $Path"
+    Write-Host "[INFO] Total regex replacements made: $totalRegex"
   }
 
   return $results
