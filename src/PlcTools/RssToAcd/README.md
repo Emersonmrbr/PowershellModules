@@ -1,18 +1,22 @@
 # 📦 Format-RssToAcd
 
+---
+
+## English (en-US)
+
 PowerShell tool for performing bulk replacements in XML files using pre-configured regular expressions.  
 Ideal for automating updates of versions, authors, dates, and other fields in RSS configuration files for ACD systems.
 
 ---
 
-## 📋 Prerequisites
+### 📋 Prerequisites
 
 - **Windows PowerShell 5.1** or higher
 - Permission to run scripts (`Set-ExecutionPolicy RemoteSigned` or equivalent)
 
 ---
 
-## 📦 Installation (Step-by-step)
+### 📦 Installation (Step-by-step)
 
 1. **Download or Clone the Repository**
 
@@ -60,7 +64,7 @@ Ideal for automating updates of versions, authors, dates, and other fields in RS
 
 ---
 
-## 🚀 How to use
+### 🚀 How to use
 
 Run the function, passing the file or directory to be processed:
 
@@ -78,44 +82,44 @@ Format-RssToAcd -Path "C:\Path\To\File.xml" -Backup
 
 ---
 
-## 🧑‍💻 Usage Examples
+### 🧑‍💻 Usage Examples
 
-### Example 1
+#### Example 1
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles.xml"
 ```
 Formats the file `PlcFiles.xml` using the default RegexMap.json, without creating a backup.
 
-### Example 2
+#### Example 2
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles.xml" -Backup
 ```
 Formats the file `PlcFiles.xml` and creates a backup before making changes.
 
-### Example 3
+#### Example 3
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.xml"
 ```
 Processes all `.xml` files in the directory, applying the regex replacements.
 
-### Example 4
+#### Example 4
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.txt"
 ```
 Processes all `.txt` files in the directory, applying the regex replacements.
 
-### Example 5
+#### Example 5
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
 ```
 Processes all `.csv` files in the directory, creating a backup for each file.
 
-### Example 6
+#### Example 6
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
@@ -124,7 +128,7 @@ Processes all `.xml` files in the directory using a custom regex map file and su
 
 ---
 
-## 📑 Configuring RegexMap.json
+### 📑 Configuring RegexMap.json
 
 All regular expressions and replacements are configured in the `RegexMap.json` file, located in the same directory as the module (or specify with `-RegexMapPath`).
 
@@ -151,13 +155,13 @@ You can add or remove patterns as needed.
 
 ---
 
-## 📄 License
+### 📄 License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) — feel free to use, modify, and distribute.
 
 ---
 
-## 👨‍💻 Author
+### 👨‍💻 Author
 
 **Emerson Brito**  
 [LinkedIn](https://www.linkedin.com/in/emersonbrito)
@@ -166,21 +170,21 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ---
 
-# 📦 Format-RssToAcd (pt-br)
+# 📦 Format-RssToAcd (Português - pt-BR)
 
 Ferramenta PowerShell para realizar substituições em massa em arquivos XML usando expressões regulares pré-configuradas.  
 Ideal para automatizar atualizações de versões, autores, datas e outros campos em arquivos de configuração RSS para sistemas ACD.
 
 ---
 
-## 📋 Pré-requisitos
+### 📋 Pré-requisitos
 
 - **Windows PowerShell 5.1** ou superior
 - Permissão para executar scripts (`Set-ExecutionPolicy RemoteSigned` ou equivalente)
 
 ---
 
-## 📦 Instalação (Passo a passo)
+### 📦 Instalação (Passo a passo)
 
 1. **Baixe ou clone o repositório**
 
@@ -228,7 +232,7 @@ Ideal para automatizar atualizações de versões, autores, datas e outros campo
 
 ---
 
-## 🚀 Como usar
+### 🚀 Como usar
 
 Execute a função, informando o arquivo ou diretório a ser processado:
 
@@ -246,44 +250,44 @@ Format-RssToAcd -Path "C:\Caminho\Para\Arquivo.xml" -Backup
 
 ---
 
-## 🧑‍💻 Exemplos de uso
+### 🧑‍💻 Exemplos de uso
 
-### Exemplo 1
+#### Exemplo 1
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles.xml"
 ```
 Formata o arquivo `PlcFiles.xml` usando o RegexMap.json padrão, sem criar backup.
 
-### Exemplo 2
+#### Exemplo 2
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles.xml" -Backup
 ```
 Formata o arquivo `PlcFiles.xml` e cria um backup antes de alterar.
 
-### Exemplo 3
+#### Exemplo 3
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.xml"
 ```
 Processa todos os arquivos `.xml` no diretório, aplicando as substituições regex.
 
-### Exemplo 4
+#### Exemplo 4
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.txt"
 ```
 Processa todos os arquivos `.txt` no diretório, aplicando as substituições regex.
 
-### Exemplo 5
+#### Exemplo 5
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
 ```
 Processa todos os arquivos `.csv` no diretório, criando backup para cada arquivo.
 
-### Exemplo 6
+#### Exemplo 6
 
 ```powershell
 Format-RssToAcd -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
@@ -292,7 +296,7 @@ Processa todos os arquivos `.xml` no diretório usando um arquivo de regex perso
 
 ---
 
-## 📑 Configurando o RegexMap.json
+### 📑 Configurando o RegexMap.json
 
 Todas as expressões regulares e substituições são configuradas no arquivo `RegexMap.json`, localizado no mesmo diretório do módulo (ou especifique com `-RegexMapPath`).
 
@@ -319,13 +323,13 @@ Você pode adicionar ou remover padrões conforme necessário.
 
 ---
 
-## 📄 Licença
+### 📄 Licença
 
 Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT) — sinta-se à vontade para usar, modificar e distribuir.
 
 ---
 
-## 👨‍💻 Autor
+### 👨‍💻 Autor
 
 **Emerson Brito**  
 [LinkedIn](https://www.linkedin.com/in/emersonbrito)
