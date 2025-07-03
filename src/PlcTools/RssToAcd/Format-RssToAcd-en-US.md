@@ -1,5 +1,5 @@
 ---
-external help file: Format-RssToAcd-help.xml
+external help file: Format-RssToAcd-help-en-US.xml
 Module Name: Format-RssToAcd
 online version:
 schema: 2.0.0

@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Format-RssToAcd</command:name>
+      <command:verb>Format</command:verb>
+      <command:noun>RssToAcd</command:noun>
+      <maml:description>
+        <maml:para>Converte arquivos no formato RSS (Rockwell Software) para o formato ACD (Allen-Bradley ControlLogix project) usando mapeamentos de expressões regulares personalizáveis.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>O módulo Format-RssToAcd fornece uma função para automatizar a conversão de arquivos do formato RSS para o formato ACD, comum em cenários de migração ou integração de CLPs. A função lê um conjunto de padrões e substituições de expressões regulares de um arquivo JSON (`RegexMap.json`) e os aplica aos arquivos de destino. A criação de backup é opcional antes das alterações. Esta ferramenta é útil para engenheiros e desenvolvedores que trabalham com automação industrial e precisam modernizar ou migrar programas de CLP legados.</maml:para>
+      <maml:para>&gt; [!NOTE] &gt; O arquivo `RegexMap.json` deve estar no mesmo diretório do módulo, a menos que um caminho personalizado seja especificado com `-RegexMapPath`. Cada entrada no JSON deve conter as propriedades `Pattern` e `Replacement`.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Format-RssToAcd</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="0" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:description>
+            <maml:para>Caminho completo para o arquivo a ser modificado ou para o diretório contendo os arquivos a serem processados.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+          <maml:name>Extension</maml:name>
+          <maml:description>
+            <maml:para>Filtro de extensão de arquivo ao buscar arquivos em um diretório. O padrão é `*.xml`. Ignorado se `-Path` for um arquivo.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>*.xml</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+          <maml:name>Backup</maml:name>
+          <maml:description>
+            <maml:para>Cria um backup do arquivo original com a extensão .bak antes de fazer alterações.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+          <maml:name>RegexMapPath</maml:name>
+          <maml:description>
+            <maml:para>(Opcional) Caminho completo para um arquivo RegexMap.json personalizado. Se não especificado, usa o padrão do diretório do módulo.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+          <maml:name>Quiet</maml:name>
+          <maml:description>
+            <maml:para>Suprime a saída no host. Retorna apenas o objeto de resultado.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="proga">
+          <maml:name>ProgressAction</maml:name>
+          <maml:description>
+            <maml:para>Determina como o PowerShell responde a atualizações de progresso geradas por scripts, cmdlets ou provedores, como as barras de progresso geradas pelo Write-Progress. O parâmetro ProgressAction foi adicionado no PowerShell 7.4.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">ActionPreference</command:parameterValue>
+          <dev:type>
+            <maml:name>ActionPreference</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="0" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:description>
+          <maml:para>Caminho completo para o arquivo a ser modificado ou para o diretório contendo os arquivos a serem processados.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+        <maml:name>Extension</maml:name>
+        <maml:description>
+          <maml:para>Filtro de extensão de arquivo ao buscar arquivos em um diretório. O padrão é `*.xml`. Ignorado se `-Path` for um arquivo.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>*.xml</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+        <maml:name>Backup</maml:name>
+        <maml:description>
+          <maml:para>Cria um backup do arquivo original com a extensão .bak antes de fazer alterações.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+        <maml:name>RegexMapPath</maml:name>
+        <maml:description>
+          <maml:para>(Opcional) Caminho completo para um arquivo RegexMap.json personalizado. Se não especificado, usa o padrão do diretório do módulo.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+        <maml:name>Quiet</maml:name>
+        <maml:description>
+          <maml:para>Suprime a saída no host. Retorna apenas o objeto de resultado.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="proga">
+        <maml:name>ProgressAction</maml:name>
+        <maml:description>
+          <maml:para>Determina como o PowerShell responde a atualizações de progresso geradas por scripts, cmdlets ou provedores, como as barras de progresso geradas pelo Write-Progress. O parâmetro ProgressAction foi adicionado no PowerShell 7.4.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">ActionPreference</command:parameterValue>
+        <dev:type>
+          <maml:name>ActionPreference</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Object[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Retorna um array de objetos com detalhes sobre cada arquivo processado, incluindo caminho do arquivo, se foi alterado, quais padrões regex foram aplicados e qualquer mensagem de erro caso o processamento falhe.</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>## RELATED LINKS</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Format-RssToAcd -Path "C:\Temp\PlcFiles.xml"</dev:code>
+        <dev:remarks>
+          <maml:para>Este exemplo formata o arquivo `PlcFiles.xml`, altera o formato da variável de .rss para .acd, usa o RegexMap.json com a configuração padrão e não cria backup. Esta função converte formatos como "{::[LinkName]B3:0/0}" para "{::[LinkName]B3[0].0}".</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Format-RssToAcd -Path "C:\Temp\PlcFiles.xml" -Backup</dev:code>
+        <dev:remarks>
+          <maml:para>Este exemplo formata o arquivo `PlcFiles.xml`, altera o formato da variável de .rss para .acd, usa o RegexMap.json com a configuração padrão e cria um backup. Esta função converte formatos como "{::[LinkName]B3:0/0}" para "{::[LinkName]B3[0].0}".</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.xml"</dev:code>
+        <dev:remarks>
+          <maml:para>Este exemplo processa todos os arquivos `.xml` no diretório `C:\Temp\PlcFiles`, aplica as substituições regex definidas no RegexMap.json e não cria backups. Útil para converter múltiplos arquivos com uma extensão específica diferente de `.xml`.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.txt"</dev:code>
+        <dev:remarks>
+          <maml:para>Este exemplo processa todos os arquivos `.txt` no diretório `C:\Temp\PlcFiles`, aplica as substituições regex definidas no RegexMap.json e não cria backups. Útil para converter múltiplos arquivos com uma extensão específica diferente de `.xml`.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup</dev:code>
+        <dev:remarks>
+          <maml:para>Este exemplo processa todos os arquivos `.csv` no diretório `C:\Temp\PlcFiles`, cria um backup para cada arquivo e aplica as substituições regex definidas no RegexMap.json.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 6 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Format-RssToAcd -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet</dev:code>
+        <dev:remarks>
+          <maml:para>Este exemplo processa todos os arquivos `.xml` no diretório `C:\Temp\PlcFiles` usando um arquivo de regex personalizado e suprime a saída no host, retornando apenas o objeto de resultado.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+</helpItems>

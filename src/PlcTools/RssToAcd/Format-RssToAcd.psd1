@@ -10,7 +10,7 @@
   CmdletsToExport   = @()
   VariablesToExport = @()
   AliasesToExport   = @()
-  FileList          = @('Format-RssToAcd.psm1', 'RegexMap.json', 'Format-RssToAcd-Help.xml')
+  FileList          = @('Format-RssToAcd.psm1', 'RegexMap.json', 'Format-RssToAcd-Help-en-US.xml', 'Format-RssToAcd-Help-pt-BR.xml')
   PowerShellVersion = '7.5.2'
   PrivateData       = @{
     PSData = @{
