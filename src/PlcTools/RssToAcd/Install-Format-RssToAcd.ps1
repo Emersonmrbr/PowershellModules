@@ -3,13 +3,13 @@
 Installs the Format-RssToAcd PowerShell module to the user's module directory.
 
 .DESCRIPTION
-This script creates the Format-RssToAcd module folder in the user's PowerShell Modules directory if it does not already exist, and copies the module files (.psm1 and .psd1) to that location. It provides instructions for importing the module after installation.
+This script creates the Format-RssToAcd module folder in the user's PowerShell Modules directory if it does not already exist, and copies the module files (.psm1, .psd1, .xml and .md) to that location. It provides instructions for importing the module after installation.
 
 .NOTES
 File Name      : Install-Format-RssToAcd.ps1
-Author         : [Your Name]
-Module Version : [Specify version if applicable]
-Date           : [Date]
+Author         : Emerson Martins Brito
+Module Version : 1.0.0
+Date           : 2025-07-04
 
 .EXAMPLE
 .\Install-Format-RssToAcd.ps1

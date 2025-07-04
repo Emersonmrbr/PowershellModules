@@ -32,11 +32,17 @@ Processes all .csv files in the directory, creates backups, and applies the rege
 function Format-RssToAcd {
   [CmdletBinding(SupportsShouldProcess = $true)]
   param(
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true,
+      HelpMessage = "Enter the full path of the file.")]
+    [ValidateNotNullOrEmpty()]
     [string]$Path,
+    [Alias("Ex")]
     [string]$Extension = '*.xml',
+    [Alias("B")]
     [switch]$Backup,
+    [Alias("R", "RegexMap")]
     [string]$RegexMapPath,
+    [Alias("Q")]
     [switch]$Quiet
   )
 
