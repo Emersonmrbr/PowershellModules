@@ -28,7 +28,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Ex">
           <maml:name>Extension</maml:name>
           <maml:description>
             <maml:para>The file extension filter to use when searching for files in a directory. Default is `*.xml`. Ignored if `-Path` is a file.</maml:para>
@@ -40,7 +40,7 @@
           </dev:type>
           <dev:defaultValue>*.xml</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="B">
           <maml:name>Backup</maml:name>
           <maml:description>
             <maml:para>Creates a backup of the original file with a .bak extension before making any changes.</maml:para>
@@ -51,7 +51,7 @@
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="R, RegexMap">
           <maml:name>RegexMapPath</maml:name>
           <maml:description>
             <maml:para>(Optional) The full path to a custom RegexMap.json file. If not specified, uses the default in the module directory.</maml:para>
@@ -63,7 +63,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Q">
           <maml:name>Quiet</maml:name>
           <maml:description>
             <maml:para>Suppresses output to the host. Only returns the result object.</maml:para>
@@ -101,7 +101,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Ex">
         <maml:name>Extension</maml:name>
         <maml:description>
           <maml:para>The file extension filter to use when searching for files in a directory. Default is `*.xml`. Ignored if `-Path` is a file.</maml:para>
@@ -113,7 +113,7 @@
         </dev:type>
         <dev:defaultValue>*.xml</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="B">
         <maml:name>Backup</maml:name>
         <maml:description>
           <maml:para>Creates a backup of the original file with a .bak extension before making any changes.</maml:para>
@@ -125,7 +125,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="R, RegexMap">
         <maml:name>RegexMapPath</maml:name>
         <maml:description>
           <maml:para>(Optional) The full path to a custom RegexMap.json file. If not specified, uses the default in the module directory.</maml:para>
@@ -137,7 +137,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Q">
         <maml:name>Quiet</maml:name>
         <maml:description>
           <maml:para>Suppresses output to the host. Only returns the result object.</maml:para>
@@ -184,7 +184,7 @@
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>## RELATED LINKS</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>

@@ -99,7 +99,7 @@ The file extension filter to use when searching for files in a directory. Defaul
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: Ex
 
 Required: False
 Position: Named
@@ -115,7 +115,7 @@ Creates a backup of the original file with a .bak extension before making any ch
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: B
 
 Required: False
 Position: Named
@@ -131,7 +131,7 @@ Accept wildcard characters: False
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: R, RegexMap
 
 Required: False
 Position: Named
@@ -147,7 +147,7 @@ Suppresses output to the host. Only returns the result object.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: Q
 
 Required: False
 Position: Named

@@ -99,7 +99,7 @@ Filtro de extensão de arquivo ao buscar arquivos em um diretório. O padrão é
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: Ex
 
 Required: No
 Position: Named
@@ -115,7 +115,7 @@ Cria um backup do arquivo original com a extensão .bak antes de fazer alteraç�
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: B
 
 Required: No
 Position: Named
@@ -131,7 +131,7 @@ Accept wildcard characters: No
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: R, RegexMap
 
 Required: No
 Position: Named
@@ -147,7 +147,7 @@ Suprime a saída no host. Retorna apenas o objeto de resultado.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: Q
 
 Required: No
 Position: Named
@@ -187,6 +187,5 @@ Este cmdlet suporta os parâmetros comuns: -Debug, -ErrorAction, -ErrorVariable,
 Retorna um array de objetos com detalhes sobre cada arquivo processado, incluindo caminho do arquivo, se foi alterado, quais padrões regex foram aplicados e qualquer mensagem de erro caso o processamento falhe.
 
 ## NOTES
-
 
 ## RELATED LINKS

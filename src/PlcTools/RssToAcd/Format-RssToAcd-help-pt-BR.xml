@@ -28,7 +28,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="Ex">
           <maml:name>Extension</maml:name>
           <maml:description>
             <maml:para>Filtro de extensão de arquivo ao buscar arquivos em um diretório. O padrão é `*.xml`. Ignorado se `-Path` for um arquivo.</maml:para>
@@ -40,7 +40,7 @@
           </dev:type>
           <dev:defaultValue>*.xml</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="B">
           <maml:name>Backup</maml:name>
           <maml:description>
             <maml:para>Cria um backup do arquivo original com a extensão .bak antes de fazer alterações.</maml:para>
@@ -51,7 +51,7 @@
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="R, RegexMap">
           <maml:name>RegexMapPath</maml:name>
           <maml:description>
             <maml:para>(Opcional) Caminho completo para um arquivo RegexMap.json personalizado. Se não especificado, usa o padrão do diretório do módulo.</maml:para>
@@ -63,7 +63,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="Q">
           <maml:name>Quiet</maml:name>
           <maml:description>
             <maml:para>Suprime a saída no host. Retorna apenas o objeto de resultado.</maml:para>
@@ -101,7 +101,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="Ex">
         <maml:name>Extension</maml:name>
         <maml:description>
           <maml:para>Filtro de extensão de arquivo ao buscar arquivos em um diretório. O padrão é `*.xml`. Ignorado se `-Path` for um arquivo.</maml:para>
@@ -113,7 +113,7 @@
         </dev:type>
         <dev:defaultValue>*.xml</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="B">
         <maml:name>Backup</maml:name>
         <maml:description>
           <maml:para>Cria um backup do arquivo original com a extensão .bak antes de fazer alterações.</maml:para>
@@ -125,7 +125,7 @@
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="R, RegexMap">
         <maml:name>RegexMapPath</maml:name>
         <maml:description>
           <maml:para>(Opcional) Caminho completo para um arquivo RegexMap.json personalizado. Se não especificado, usa o padrão do diretório do módulo.</maml:para>
@@ -137,7 +137,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="Q">
         <maml:name>Quiet</maml:name>
         <maml:description>
           <maml:para>Suprime a saída no host. Retorna apenas o objeto de resultado.</maml:para>
@@ -184,7 +184,7 @@
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>## RELATED LINKS</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
