@@ -2,28 +2,37 @@ function Format-RssToAcd {
   [CmdletBinding(SupportsShouldProcess = $true)]
   param(
     [Parameter(Mandatory = $true,
-      HelpMessage = "Enter the full path of the file.")]
+      HelpMessage = "Enter the full path of the file or directory.")]
     [ValidateNotNullOrEmpty()]
     [string]$Path,
+
     [Alias("Ex")]
     [string]$Extension = '*.xml',
+
     [Alias("B")]
     [switch]$Backup,
+
     [Alias("R", "RegexMap")]
     [string]$RegexMapPath,
+
     [Alias("Q")]
-    [switch]$Quiet
+    [switch]$Quiet,
+
+    [Alias("L")]
+    [switch]$Log
   )
+
+  $IsFile = $false
 
   # RegexMap.json location (custom or default)
   $regexFile = if ($RegexMapPath) { $RegexMapPath } else { Join-Path $PSScriptRoot 'RegexMap.json' }
 
   # Validate input path
-  if (-Not (Test-Path $Path)) {
+  if (-not (Test-Path $Path)) {
     Write-Error "File or directory '$Path' not found."
     return
   }
-  if (-Not (Test-Path $regexFile)) {
+  if (-not (Test-Path $regexFile)) {
     Write-Error "Regex file '$regexFile' not found."
     return
   }
@@ -44,6 +53,7 @@ function Format-RssToAcd {
   # Get files to process
   if (Test-Path $Path -PathType Leaf) {
     $files = @(Get-Item $Path)
+    $IsFile = $true
   }
   else {
     $files = Get-ChildItem -Path $Path -Filter $Extension -File -Recurse
@@ -54,6 +64,7 @@ function Format-RssToAcd {
   }
 
   $results = @()
+  $resultsLog = @()
   if (-not $Quiet) { Write-Verbose "[INFO] Found $($files.Count) files to process in path: $Path" }
 
   # Backup files if requested
@@ -66,7 +77,6 @@ function Format-RssToAcd {
       }
       catch {
         Write-Error "Failed to create backup for '$($file.FullName)': $_"
-        # Continue processing other files
         continue
       }
     }
@@ -118,6 +128,12 @@ function Format-RssToAcd {
       $results += [PSCustomObject]@{
         File             = $file.FullName
         Changed          = $changed
+        RegexCount       = $regexApplied.Count
+        ReplacementCount = $totalReplacements
+      }
+      $resultsLog += [PSCustomObject]@{
+        File             = $file.FullName
+        Changed          = $changed
         RegexApplied     = $regexApplied
         RegexCount       = $regexApplied.Count
         ReplacementCount = $totalReplacements
@@ -145,6 +161,14 @@ function Format-RssToAcd {
   if (-not $Quiet) {
     Write-Host "[OK] [$changedCount] file(s) updated in path $Path"
     Write-Host "[INFO] Total regex replacements made: $totalRegex"
+  }
+  if ($Log) {
+    $Time = Get-Date -Format "yyyyMMdd_HHmmss"
+    $LogName = "Format-RssToAcd_$Time.log"
+    $LogDirectory = if ($IsFile) { Split-Path -Path $Path -Parent -Resolve } else { $Path }
+    $LogPath = Join-Path $LogDirectory $LogName
+    $resultsLog | ConvertTo-Json -Depth 5 | Out-File -FilePath $LogPath -Encoding UTF8
+    if (-not $Quiet) { Write-Host "[INFO] Log file created at: $LogPath" }
   }
 
   return $results

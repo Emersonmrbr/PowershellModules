@@ -14,12 +14,12 @@ Converts RSS (Rockwell Software) format files to ACD (Allen-Bradley ControlLogix
 ## SYNTAX
 
 ```
-Format-RssToAcd [-Path] <String> [-Backup] [-Extension] <string> [-RegexMapPath <string>] [-Quiet] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Format-RssToAcd [-Path] <String> [-Backup] [-Extension] <string> [-RegexMapPath <string>] [-Quiet] [-Log] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-The Format-RssToAcd module provides a function to automate the conversion of files from the RSS format to the ACD format, commonly used in PLC migration or integration scenarios. The function reads a set of regular expression patterns and replacements from a JSON file (`RegexMap.json`) and applies them to the target file(s). Optional backup creation is supported before making changes. This tool is useful for engineers and developers working with industrial automation projects who need to modernize or migrate legacy PLC programs.
+The Format-RssToAcd module provides a function to automate the conversion of files from the RSS format to the ACD format, commonly used in PLC migration or integration scenarios. The function reads a set of regular expression patterns and replacements from a JSON file (`RegexMap.json`) and applies them to the target file(s). Optional backup creation is supported before making changes. The module now provides detailed output, including the total number of regex replacements per file and an overall summary at the end of execution. Additional parameters such as `-RegexMapPath`, `-Quiet`, `-Log`, and `-ProgressAction` are supported for greater flexibility and control. This tool is useful for engineers and developers working with industrial automation projects who need to modernize or migrate legacy PLC programs.
 
 > [!NOTE]
 > The `RegexMap.json` file must be present in the same directory as the module, unless a custom path is specified with `-RegexMapPath`. Each entry in the JSON must contain both `Pattern` and `Replacement` properties.
@@ -32,7 +32,7 @@ The Format-RssToAcd module provides a function to automate the conversion of fil
 PS C:\> Format-RssToAcd -Path "C:\Temp\PlcFiles.xml"
 ```
 
-This example formats the file `PlcFiles.xml`, changes the format variable from .rss to .acd, uses the RegexMap.json with the base configuration, and does not create a backup. This function will convert formats like "{::[LinkName]B3:0/0}" to "{::[LinkName]B3[0].0}".
+Formats the file `PlcFiles.xml`, applies the regex replacements using the default RegexMap.json, and does not create a backup. The function will convert formats like "{::[LinkName]B3:0/0}" to "{::[LinkName]B3[0].0}". At the end, it displays the number of replacements made.
 
 ### Example 2
 
@@ -40,7 +40,7 @@ This example formats the file `PlcFiles.xml`, changes the format variable from .
 PS C:\> Format-RssToAcd -Path "C:\Temp\PlcFiles.xml" -Backup
 ```
 
-This example formats the file `PlcFiles.xml`, changes the format variable from .rss to .acd, uses the RegexMap.json with the base configuration, and creates a backup. This function will convert formats like "{::[LinkName]B3:0/0}" to "{::[LinkName]B3[0].0}".
+Formats the file `PlcFiles.xml`, applies the regex replacements, and creates a backup before making changes.
 
 ### Example 3
 
@@ -48,7 +48,7 @@ This example formats the file `PlcFiles.xml`, changes the format variable from .
 PS C:\> Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.xml"
 ```
 
-This example processes all `.xml` files in the `C:\Temp\PlcFiles` directory, applies the regex replacements defined in RegexMap.json, and does not create backups. This is useful when you need to convert multiple files with a specific extension other than `.xml`.
+Processes all `.xml` files in the `C:\Temp\PlcFiles` directory, applies the regex replacements defined in RegexMap.json, and does not create backups. Useful for converting multiple files at once.
 
 ### Example 4
 
@@ -56,7 +56,7 @@ This example processes all `.xml` files in the `C:\Temp\PlcFiles` directory, app
 PS C:\> Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.txt"
 ```
 
-This example processes all `.txt` files in the `C:\Temp\PlcFiles` directory, applies the regex replacements defined in RegexMap.json, and does not create backups. This is useful when you need to convert multiple files with a specific extension other than `.xml`.
+Processes all `.txt` files in the directory, applying the regex replacements.
 
 ### Example 5
 
@@ -64,7 +64,7 @@ This example processes all `.txt` files in the `C:\Temp\PlcFiles` directory, app
 PS C:\> Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
 ```
 
-This example processes all `.csv` files in the `C:\Temp\PlcFiles` directory, creates a backup for each file, and applies the regex replacements defined in RegexMap.json.
+Processes all `.csv` files in the directory, creates a backup for each file, and applies the regex replacements.
 
 ### Example 6
 
@@ -72,7 +72,15 @@ This example processes all `.csv` files in the `C:\Temp\PlcFiles` directory, cre
 PS C:\> Format-RssToAcd -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 ```
 
-This example processes all `.xml` files in the `C:\Temp\PlcFiles` directory using a custom regex map file and suppresses output to the host, returning only the result object.
+Processes all `.xml` files in the directory using a custom regex map file and suppresses output to the host, returning only the result object.
+
+### Example 7
+
+```powershell
+PS C:\> Format-RssToAcd -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet -Log
+```
+
+Processes all `.xml` files in the directory using a custom regex map file, suppresses output to the host, returns only the result object, and creates a log file saved in the same directory.
 
 ## PARAMETERS
 
@@ -156,9 +164,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Log
+
+Creates a detailed log file of the processing, saved in the same directory specified in `-Path` with the name `Format-RssToAcd_<date>.log`.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: L
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -ProgressAction
 
-Determines how PowerShell responds to progress updates generated by a script, cmdlet, or provider, such as the progress bars generated by the Write-Progress cmdlet. The Write-Progress cmdlet creates progress bars that show a command's status. The ProgressAction parameter was added in PowerShell 7.4.
+Determines how PowerShell responds to progress updates generated by a script, cmdlet, or provider, such as the progress bars generated by the Write-Progress cmdlet. The ProgressAction parameter was added in PowerShell 7.4.
 
 ```yaml
 Type: ActionPreference
@@ -184,8 +208,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### Object[]
 
-Returns an array of objects with details about each file processed, including file path, whether it was changed, which regex patterns were applied, and any error message if processing failed.
+Returns an array of objects with details about each file processed, including file path, whether it was changed, the number of regex patterns applied (`RegexCount`), the total number of replacements made (`ReplacementCount`), and any error message if processing failed.
 
 ## NOTES
+
+- The log file is saved in the same directory specified in `-Path`.
+- The final summary is displayed by default unless `-Quiet` is used.
+- The module supports multi-language help (en-US and pt-BR).
+- For advanced usage, see the README in the module directory.
 
 ## RELATED LINKS
