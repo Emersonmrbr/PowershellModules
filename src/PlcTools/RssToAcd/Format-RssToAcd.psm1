@@ -1,34 +1,3 @@
-<#
-.SYNOPSIS
-Converts RSS (Rockwell Software) format files to ACD (Allen-Bradley ControlLogix project) format using customizable regular expression mappings.
-
-.DESCRIPTION
-The Format-RssToAcd function automates the conversion of files from RSS to ACD format, applying regex patterns and replacements defined in RegexMap.json. It supports processing single files or all files in a directory (with extension filtering), and can optionally create backups before making changes. The function returns a summary object with the results of the operation.
-
-.PARAMETER Path
-The full path to the file to be modified, or to a directory containing files to process.
-
-.PARAMETER Extension
-The file extension filter to use when searching for files in a directory. Default is '*.xml'. Ignored if Path is a file.
-
-.PARAMETER Backup
-Creates a backup of the original file with a .bak extension before making any changes.
-
-.PARAMETER RegexMapPath
-(Optional) The full path to a custom RegexMap.json file. If not specified, uses the default in the module directory.
-
-.PARAMETER Quiet
-Suppresses output to the host. Only returns the result object.
-
-.EXAMPLE
-Format-RssToAcd -Path "C:\Temp\PlcFiles.xml"
-Formats the file PlcFiles.xml using RegexMap.json, without creating a backup.
-
-.EXAMPLE
-Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
-Processes all .csv files in the directory, creates backups, and applies the regex replacements.
-#>
-
 function Format-RssToAcd {
   [CmdletBinding(SupportsShouldProcess = $true)]
   param(

@@ -27,7 +27,7 @@ if (-Not (Test-Path $modulePath)) {
 }
 
 # Copy the files from the current directory to the destination
-Copy-Item -Path ".\Format-RssToAcd.psm1", ".\Format-RssToAcd.psd1", ".\Format-RssToAcd-help-en-US.xml", ".\Format-RssToAcd-help-pt-BR.xml", ".\RegexMap.json", "README.md" -Destination $modulePath -Force
+Copy-Item -Path ".\*" -Destination $modulePath -Force
 
 Write-Host "Format-RssToAcd module installed at $modulePath"
 Write-Host "To load the module in your current session, run:"
