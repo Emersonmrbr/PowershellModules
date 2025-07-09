@@ -180,7 +180,7 @@ function Format-RssToAcd {
     Write-Host "[INFO] Total regex replacements made: $totalRegex"
   }
   if ($Log) {
-    $Time = Get-Date -Format "yyyyMMdd_HHmmss"
+    $Time = Get-Date -UFormat "%Y%m%d_%H%M%S"
     $LogName = "Format-RssToAcd_$Time.log"
     $LogDirectory = if ($IsFile) { Split-Path -Path $Path -Parent -Resolve } else { $Path }
     $LogPath = Join-Path $LogDirectory $LogName
