@@ -4,22 +4,39 @@ function Format-RssToAcd {
     [Parameter(Mandatory = $true,
       HelpMessage = "Enter the full path of the file or directory.")]
     [ValidateNotNullOrEmpty()]
-    [string]$Path,
+    [string]
+    # The path to the file or directory containing XML files to process.
+    [Alias("P")]
+    $Path,
 
     [Alias("Ex")]
-    [string]$Extension = '*.xml',
+    [string]
+    # The file extension to filter files. Default is '*.xml'.
+    $Extension = '*.xml',
 
     [Alias("B")]
-    [switch]$Backup,
+    [switch]
+    # If specified, creates a backup of the original files before processing.
+    # The backup files will have a '.bak' extension.
+    $Backup,
 
     [Alias("R", "RegexMap")]
-    [string]$RegexMapPath,
+    [string]
+    # The path to the JSON file containing regex patterns and replacements.
+    # If not specified, defaults to 'RegexMap.json' in the same directory as the
+    $RegexMapPath,
 
     [Alias("Q")]
-    [switch]$Quiet,
+    [switch]
+    # If specified, suppresses verbose output and only shows errors.
+    # Use this for quiet operation without detailed logs.
+    $Quiet,
 
     [Alias("L")]
-    [switch]$Log
+    [switch]
+    # If specified, creates a log file with the results of the processing.
+    # The log file will be saved in the same directory as the processed files.
+    $Log
   )
 
   $IsFile = $false
