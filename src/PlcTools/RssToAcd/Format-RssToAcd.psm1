@@ -76,7 +76,7 @@ function Format-RssToAcd {
 
     return [PSCustomObject]@{
       File             = $file.FullName
-      DateProcessed    = (Get-Date).ToString('yyyy-MM-dd HH:mm:ss')
+      DateProcessed    = (Get-Date -UFormat "%F %T").ToString()
       Size             = [Math]::Round($content.Length / 1MB, 2)
       Lenght           = $content.Length
       Changed          = ($content -ne $original)
