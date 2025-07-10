@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Clear-Temporary</command:name>
+      <command:verb>Clear</command:verb>
+      <command:noun>Temporary</command:noun>
+      <maml:description>
+        <maml:para>Removes temporary files from system directories, optionally runs Disk Cleanup, and can restart or shut down the computer.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Clear-Temporary` function deletes temporary files from standard Windows directories, optionally executes the Windows Disk Cleanup utility (`cleanmgr`), and can restart or shut down the system upon completion.</maml:para>
+      <maml:para>Temporary file deletion is performed safely with `ShouldProcess` support. You can enable detailed logging of file counts and sizes per directory and optionally suppress host output for quiet operation.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Clear-Temporary</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Q">
+          <maml:name>Quiet</maml:name>
+          <maml:description>
+            <maml:para>Suppresses standard messages displayed by the function, outputting only verbose messages.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="L">
+          <maml:name>Log</maml:name>
+          <maml:description>
+            <maml:para>Generates a log file in the system TEMP directory detailing the number and size of files deleted from each directory.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="R">
+          <maml:name>Restart</maml:name>
+          <maml:description>
+            <maml:para>Restarts the computer after cleaning temporary files and (optionally) running Disk Cleanup.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="S">
+          <maml:name>Shutdown</maml:name>
+          <maml:description>
+            <maml:para>Shuts down the computer after cleaning temporary files and (optionally) running Disk Cleanup.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="C">
+          <maml:name>ClearDisk</maml:name>
+          <maml:description>
+            <maml:para>Runs the Windows Disk Cleanup utility (`cleanmgr.exe`) using predefined settings.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Q">
+        <maml:name>Quiet</maml:name>
+        <maml:description>
+          <maml:para>Suppresses standard messages displayed by the function, outputting only verbose messages.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="L">
+        <maml:name>Log</maml:name>
+        <maml:description>
+          <maml:para>Generates a log file in the system TEMP directory detailing the number and size of files deleted from each directory.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="R">
+        <maml:name>Restart</maml:name>
+        <maml:description>
+          <maml:para>Restarts the computer after cleaning temporary files and (optionally) running Disk Cleanup.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="S">
+        <maml:name>Shutdown</maml:name>
+        <maml:description>
+          <maml:para>Shuts down the computer after cleaning temporary files and (optionally) running Disk Cleanup.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="C">
+        <maml:name>ClearDisk</maml:name>
+        <maml:description>
+          <maml:para>Runs the Windows Disk Cleanup utility (`cleanmgr.exe`) using predefined settings.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>This cmdlet does not accept input from the pipeline.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Object[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Returns an array of objects with details about each directory processed, including the path, file count, and total size in megabytes.</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>- Requires administrative privileges for Disk Cleanup, restart, and shutdown actions.</maml:para>
+        <maml:para>- Uses `ShouldProcess` for confirmation before performing destructive operations.</maml:para>
+        <maml:para>- Log files are saved to the system TEMP directory as `Clear-Temporary.log`.</maml:para>
+        <maml:para>- The Prefetch folder is no longer processed to preserve system stability.</maml:para>
+        <maml:para>- The module supports multi-language help (en-US and pt-BR).</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Clear-Temporary</dev:code>
+        <dev:remarks>
+          <maml:para>Removes temporary files from system temp folders and displays standard success messages.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Clear-Temporary -ClearDisk</dev:code>
+        <dev:remarks>
+          <maml:para>Removes temporary files and runs the Windows Disk Cleanup utility.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Clear-Temporary -Restart</dev:code>
+        <dev:remarks>
+          <maml:para>Removes temporary files and restarts the computer after a brief delay.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Clear-Temporary -Log</dev:code>
+        <dev:remarks>
+          <maml:para>Removes temporary files and logs details for each folder to a file in the system TEMP directory.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Clear-Temporary -Quiet</dev:code>
+        <dev:remarks>
+          <maml:para>Performs the operation while suppressing standard output messages, displaying verbose messages only.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Remove-Item</maml:linkText>
+        <maml:uri>https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-ChildItem</maml:linkText>
+        <maml:uri>https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Measure-Object</maml:linkText>
+        <maml:uri>https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/measure-object</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Restart-Computer</maml:linkText>
+        <maml:uri>https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/restart-computer</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Stop-Computer</maml:linkText>
+        <maml:uri>https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-computer</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>cleanmgr.exe</maml:linkText>
+        <maml:uri>https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cleanmgr</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>

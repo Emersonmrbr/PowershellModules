@@ -28,13 +28,13 @@ Each tool or module is organized in its own subfolder within `PlcTools`. For exa
 ### Example Usage
 
 ```powershell
-Import-Module .\RssToAcd\Format-RssToAcd.psm1
+Import-Module .\RssToAcd\Edit-PlcFile.psm1
 
 # Process a single file and create a backup
-Format-RssToAcd -Path "C:\Temp\PlcFiles.xml" -Backup
+Edit-PlcFile -Path "C:\Temp\PlcFiles.xml" -Backup
 
 # Process all .csv files in a directory, using a custom regex map, and suppress output
-Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
+Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 ```
 
 ### Contributing
@@ -73,13 +73,13 @@ Cada ferramenta ou módulo está organizada em sua própria subpasta dentro de `
 ### Exemplo de uso
 
 ```powershell
-Import-Module .\RssToAcd\Format-RssToAcd.psm1
+Import-Module .\RssToAcd\Edit-PlcFile.psm1
 
 # Processar um único arquivo e criar um backup
-Format-RssToAcd -Path "C:\Temp\PlcFiles.xml" -Backup
+Edit-PlcFile -Path "C:\Temp\PlcFiles.xml" -Backup
 
 # Processar todos os arquivos .csv em um diretório, usando um regex map personalizado e suprimindo a saída
-Format-RssToAcd -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
+Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 ```
 
 ### Contribuição

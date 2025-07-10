@@ -1,4 +1,4 @@
-function Format-RssToAcd {
+function Edit-PlcFile {
   [CmdletBinding(SupportsShouldProcess = $true)]
   param(
     [Parameter(Mandatory)]
@@ -111,7 +111,7 @@ function Format-RssToAcd {
   }
 
   if ($Log) {
-    $logPath = Join-Path ( (Test-Path $Path -PathType Leaf) ? (Split-Path $Path -Parent) : $Path) "Format-RssToAcd_$(Get-Date -UFormat '%Y%m%d_%H%M%S').log"
+    $logPath = Join-Path ( (Test-Path $Path -PathType Leaf) ? (Split-Path $Path -Parent) : $Path) "Edit-PlcFile_$(Get-Date -UFormat '%Y%m%d_%H%M%S').log"
     $results | ConvertTo-Json -Depth 5 | Out-File $logPath -Encoding UTF8
     if (-not $Quiet) { Write-Host "[INFO] Log file created at: $logPath" }
   }
@@ -128,4 +128,4 @@ function Format-RssToAcd {
   return $results
 }
 
-Export-ModuleMember -Function Format-RssToAcd
+Export-ModuleMember -Function Edit-PlcFile
