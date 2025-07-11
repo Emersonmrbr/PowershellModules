@@ -1,15 +1,15 @@
 ﻿TOPIC
-    about_edit-plcfile
+    about_Format-TextByRegex
 
 TOPIC
-    about_Edit-PlcFile
+    about_Format-TextByRegex
 
 SHORT DESCRIPTION
     Converts RSS (Rockwell Software) format files to ACD (Allen-Bradley
     ControlLogix project) format using customizable regular expression mappings.
 
 LONG DESCRIPTION
-    The Edit-PlcFile module provides a function to automate the conversion of
+    The Format-TextByRegex module provides a function to automate the conversion of
     files from the RSS format to the ACD format, commonly used in PLC migration
     or integration scenarios. The function reads a set of regular expression
     patterns and replacements from a JSON file (`RegexMap.json`) and applies
@@ -29,7 +29,7 @@ Optional Subtopics
 
 EXAMPLES
 Example 1
-    PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles.xml"
+    PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles.xml"
 
     Formats the file `PlcFiles.xml`, applies the regex replacements using the
     default RegexMap.json, and does not create a backup. The function will
@@ -37,38 +37,38 @@ Example 1
     the end, it displays the number of replacements made.
 
 Example 2
-    PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles.xml" -Backup
+    PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup
 
     Formats the file `PlcFiles.xml`, applies the regex replacements, and creates
     a backup before making changes.
 
 Example 3
-    PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.xml"
+    PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.xml"
 
     Processes all `.xml` files in the `C:\Temp\PlcFiles` directory, applies the
     regex replacements defined in RegexMap.json, and does not create backups.
     Useful for converting multiple files at once.
 
 Example 4
-    PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.txt"
+    PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.txt"
 
     Processes all `.txt` files in the directory, applying the regex
     replacements.
 
 Example 5
-    PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
+    PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
 
     Processes all `.csv` files in the directory, creates a backup for each file,
     and applies the regex replacements.
 
 Example 6
-    PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
+    PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 
     Processes all `.xml` files in the directory using a custom regex map file
     and suppresses output to the host, returning only the result object.
 
 Example 7
-    PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet -Log
+    PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet -Log
 
     Processes all `.xml` files in the directory using a custom regex map file,
     suppresses output to the host, returns only the result object, and creates a

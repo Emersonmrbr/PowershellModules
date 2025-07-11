@@ -1,4 +1,4 @@
-function Edit-PlcFile {
+function Format-TextByRegex {
   [CmdletBinding(SupportsShouldProcess = $true)]
   param(
     [Parameter(Mandatory)]
@@ -22,6 +22,18 @@ function Edit-PlcFile {
     [switch] $Log
   )
 
+  function Write-Status {
+    param([string]$Message, [string]$Type = "VERBOSE", [string]$InformationAction = "SilentlyContinue")
+    if (-not $Quiet) {
+      switch ($Type.ToUpper()) {
+        "INFO" { Write-Information $Message -InformationAction $InformationAction }
+        "OK" { Write-Host $Message -ForegroundColor Green }
+        "ERROR" { Write-Error $Message }
+        default { Write-Verbose $Message }
+      }
+    }
+  }
+
   function Get-RegexList {
     param($Path)
     if (-not (Test-Path $Path)) {
@@ -44,9 +56,19 @@ function Edit-PlcFile {
 
   function New-Backup {
     param($Files)
+    if (-not $Files -or $Files.Count -eq 0) {
+      Write-Status "No files to backup." "INFO" "Continue"
+      return
+    }
+    $previousBackup = Get-ChildItem -Path $Path -Include "*.bak" -File -Recurse -ErrorAction SilentlyContinue 
+    if ($previousBackup.Length -gt 0) {
+      Write-Status "Previous backup files found. Do you want to overwrite them?" "INFO" "Continue"
+      Write-Status "Previous backup files found. Do you want to overwrite them?" "INFO" "Inquire"
+    }
     foreach ($file in $Files) {
       Copy-Item $file.FullName "$($file.FullName).bak" -Force
     }
+    Write-Status "[OK] Creating backup for $($Files.Count) file(s)..." "OK"
   }
 
   function Set-File {
@@ -64,14 +86,14 @@ function Edit-PlcFile {
       if ($count -gt 0) {
         $applied += $rx.Pattern
         $replacements += $count
-        if (-not $Quiet) { Write-Verbose "Applied: $($rx.Pattern) ➝ $($rx.Replacement) ($count)" }
+        Write-Status "[INFO] Applied: $($rx.Pattern) ➝ $($rx.Replacement) ($count)"
         $content = $content -replace $rx.Pattern, $rx.Replacement
       }
     }
 
-    if ($content -ne $original -and $PSCmdlet.ShouldProcess($file.FullName, "Update")) {
+    if (($content -ne $original) -and ($PSCmdlet.ShouldProcess($file.FullName, "Update"))) {
       Set-Content $file $content -Encoding $encoding -Force
-      if (-not $Quiet) { Write-Verbose "[INFO] File '$($file.Name)' updated." }
+      Write-Status "[INFO] File '$($file.Name)' updated."
     }
 
     return [PSCustomObject]@{
@@ -84,7 +106,7 @@ function Edit-PlcFile {
       RegexCount       = $applied.Count
       ReplacementCount = $replacements
       Encoding         = $encoding
-      ContentHash      = [System.BitConverter]::ToString([System.Security.Cryptography.SHA256]::Create().ComputeHash([System.Text.Encoding]::UTF8.GetBytes($content))).Replace('-', '')
+      ContentHash      = [System.BitConverter]::ToString([System.Security.Cryptography.SHA256]::Create().ComputeHash([System.Text.Encoding]::UTF8.GetBytes($content))).Replace("-", "")
       Measurement      = $content | Measure-Object -Character -Line -Word
     }
   }
@@ -93,7 +115,7 @@ function Edit-PlcFile {
   $regexList = Get-RegexList -Path $regexPath
   $files = Get-FilesToProcess -Path $Path -Extension $Extension
   if ($files.Count -eq 0) { throw "No files found at path '$Path'." }
-  if (-not $Quiet) { Write-Verbose "[INFO] Found $($files.Count) files in '$Path'" }
+  Write-Status "[INFO] Found $($files.Count) files in '$Path'" 
   if ($Backup) { New-Backup -Files $files }
 
   $results = [System.Collections.Generic.List[PSObject]]::new()
@@ -101,9 +123,7 @@ function Edit-PlcFile {
     try {
       $result = Set-File -file $file -regexList $regexList -Quiet:$Quiet
       $results += $result
-      if (-not $Quiet) {
-        Write-Host "[$($file.Name)] Total replacements: $($result.ReplacementCount)"
-      }
+      Write-Status "[INFO] [$($file.Name)] Total replacements: $($result.ReplacementCount)"
     }
     catch {
       Write-Error "Error processing '$($file.FullName)': $_"
@@ -111,21 +131,21 @@ function Edit-PlcFile {
   }
 
   if ($Log) {
-    $logPath = Join-Path ( (Test-Path $Path -PathType Leaf) ? (Split-Path $Path -Parent) : $Path) "Edit-PlcFile_$(Get-Date -UFormat '%Y%m%d_%H%M%S').log"
+    $logPath = Join-Path ( (Test-Path $Path -PathType Leaf) ? (Split-Path $Path -Parent) : $Path) "Format-TextByRegex_$(Get-Date -UFormat '%Y%m%d_%H%M%S').log"
     $results | ConvertTo-Json -Depth 5 | Out-File $logPath -Encoding UTF8
-    if (-not $Quiet) { Write-Host "[INFO] Log file created at: $logPath" }
+    Write-Status "[OK] Log file created at: $logPath" "OK"
   }
 
   $changedCount = ($results | Where-Object { $_.Changed }).Count
   $totalReplacements = ($results | Measure-Object -Property ReplacementCount -Sum).Sum
+  $results = $results | Select-Object File, Changed, RegexCount, ReplacementCount | Format-Table -AutoSize
+  Write-Status "[OK] Processed $($files.Count) file(s) in path '$Path'" "OK"
+  Write-Status "[OK] Updated $changedCount file(s)" "OK"
+  Write-Status "[OK] Total replacements: $totalReplacements" "OK"
   if (-not $Quiet) {
-    $results = $results | Select-Object File, Changed, RegexCount, ReplacementCount | Format-Table -AutoSize
-    Write-Host "[INFO] Processed $($files.Count) file(s) in path '$Path'"
-    Write-Host "[OK] Updated $changedCount file(s)"
-    Write-Host "[INFO] Total replacements: $totalReplacements"
+    return $results
   }
 
-  return $results
 }
 
-Export-ModuleMember -Function Edit-PlcFile
+Export-ModuleMember -Function Format-TextByRegex

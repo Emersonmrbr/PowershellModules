@@ -14,7 +14,7 @@ This section of the repository is dedicated to the development of PowerShell too
 
 Each tool or module is organized in its own subfolder within `PlcTools`. For example:
 
-- [`RssToAcd`](RssToAcd/): A module for converting RSS files to ACD format using configurable regular expressions.
+- [`Format-TextByRegex`](Format-TextByRegex/): A module for converting RSS files to ACD format using configurable regular expressions.
 
 > **Note:**  
 > Inside each module directory, you will find a dedicated `README.md` file that explains how to install the module and provides detailed usage instructions and examples.
@@ -28,13 +28,13 @@ Each tool or module is organized in its own subfolder within `PlcTools`. For exa
 ### Example Usage
 
 ```powershell
-Import-Module .\RssToAcd\Edit-PlcFile.psm1
+Import-Module .\Format-TextByRegex\Format-TextByRegex.psm1
 
 # Process a single file and create a backup
-Edit-PlcFile -Path "C:\Temp\PlcFiles.xml" -Backup
+Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup
 
 # Process all .csv files in a directory, using a custom regex map, and suppress output
-Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
+Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 ```
 
 ### Contributing
@@ -59,7 +59,7 @@ O **PlcTools** tem como objetivo fornecer um conjunto modular e extensível de u
 
 Cada ferramenta ou módulo está organizada em sua própria subpasta dentro de `PlcTools`. Por exemplo:
 
-- [`RssToAcd`](RssToAcd/): Um módulo para converter arquivos RSS para o formato ACD usando expressões regulares configuráveis.
+- [`Format-TextByRegex`](Format-TextByRegex/): Um módulo para converter arquivos RSS para o formato ACD usando expressões regulares configuráveis.
 
 > **Nota:**  
 > Dentro de cada diretório de módulo, você encontrará um arquivo `README.md` dedicado que explica como instalar o módulo e fornece instruções detalhadas de uso e exemplos.
@@ -73,13 +73,13 @@ Cada ferramenta ou módulo está organizada em sua própria subpasta dentro de `
 ### Exemplo de uso
 
 ```powershell
-Import-Module .\RssToAcd\Edit-PlcFile.psm1
+Import-Module .\Format-TextByRegex\Format-TextByRegex.psm1
 
 # Processar um único arquivo e criar um backup
-Edit-PlcFile -Path "C:\Temp\PlcFiles.xml" -Backup
+Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup
 
 # Processar todos os arquivos .csv em um diretório, usando um regex map personalizado e suprimindo a saída
-Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
+Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 ```
 
 ### Contribuição

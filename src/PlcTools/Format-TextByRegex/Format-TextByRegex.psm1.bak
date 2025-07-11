@@ -1,4 +1,4 @@
-function Edit-PlcFile {
+function Format-TextByRegex {
   [CmdletBinding(SupportsShouldProcess = $true)]
   param(
     [Parameter(Mandatory = $true,
@@ -181,7 +181,7 @@ function Edit-PlcFile {
   }
   if ($Log) {
     $Time = Get-Date -UFormat "%Y%m%d_%H%M%S"
-    $LogName = "Edit-PlcFile_$Time.log"
+    $LogName = "Format-TextByRegex_$Time.log"
     $LogDirectory = if ($IsFile) { Split-Path -Path $Path -Parent -Resolve } else { $Path }
     $LogPath = Join-Path $LogDirectory $LogName
     $resultsLog | ConvertTo-Json -Depth 5 | Out-File -FilePath $LogPath -Encoding UTF8
@@ -191,4 +191,4 @@ function Edit-PlcFile {
   return $results
 }
 
-Export-ModuleMember -Function Edit-PlcFile
+Export-ModuleMember -Function Format-TextByRegex

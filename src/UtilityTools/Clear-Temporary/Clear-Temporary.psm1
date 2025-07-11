@@ -12,7 +12,7 @@ function Clear-Temporary {
   $results = [System.Collections.Generic.List[PSObject]]::new()
 
   function Write-Status {
-    param([string]$Message, [string]$Type = "INFO", [string]$InformationAction = "Continue")
+    param([string]$Message, [string]$Type = "VERBOSE", [string]$InformationAction = "SilentlyContinue")
     if (-not $Quiet) {
       switch ($Type.ToUpper()) {
         "INFO" { Write-Information $Message -InformationAction $InformationAction }
@@ -54,7 +54,7 @@ function Clear-Temporary {
         $results.Add((Remove-Files $path))
       }
     }
-    Write-Status "Temporary files deleted successfully" "OK"
+    Write-Status "[OK] Temporary files deleted successfully" "OK"
   }
   catch {
     Write-Status "Failed to delete temporary files: $_" "ERROR"
@@ -65,23 +65,23 @@ function Clear-Temporary {
       Start-Process cleanmgr -ArgumentList "/sageset:65535" -Wait
       Start-Process cleanmgr -ArgumentList "/sagerun:65535" -WindowStyle Normal -Wait
       Start-Process cleanmgr.exe -ArgumentList "/lowdisk /sagerun:65535" -WindowStyle Normal -Wait
-      Write-Status "Disk Cleanup completed successfully" "OK"
+      Write-Status "[OK] Disk Cleanup completed successfully" "OK"
     }
     catch {
       Write-Status "Disk Cleanup operation failed: $_" "ERROR"
     }
   }
   else {
-    Write-Status "Disk Cleanup not performed"
+    Write-Status "[INFO] Disk Cleanup not performed"
   }
 
   if ($Restart) {
-    Write-Status "System will restart in 5 seconds..."
+    Write-Status "System will restart in 10 seconds..." "INFO" "Continue"
     Start-Countdown "Restarting"
     Restart-Computer -Force
   }
   elseif ($Shutdown) {
-    Write-Status "System will shut down in 5 seconds..."
+    Write-Status "System will shut down in 10 seconds..." "INFO" "Continue"
     Start-Countdown "Shutting down"
     Stop-Computer -Force
   }
@@ -92,7 +92,7 @@ function Clear-Temporary {
       $logMessage = "$($item.'Date Processed') - Cleared $($item.'Total Deleted') files from $($item.Path) ($($item.'Released (MB)') MB)"
       Add-Content -Path $logPath -Value $logMessage
     }
-    Write-Status "Log saved to $logPath"
+    Write-Status "[INFO] Log saved to $logPath"
   }
 
   return $results

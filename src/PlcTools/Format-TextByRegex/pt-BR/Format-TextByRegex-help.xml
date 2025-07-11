@@ -2,7 +2,7 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Edit-PlcFile</command:name>
+      <command:name>Format-TextByRegex</command:name>
       <command:verb>Edit</command:verb>
       <command:noun>PlcFile</command:noun>
       <maml:description>
@@ -10,12 +10,12 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>O módulo Edit-PlcFile fornece uma função para automatizar a conversão de arquivos do formato RSS para o formato ACD, comum em cenários de migração ou integração de CLPs. A função lê um conjunto de padrões e substituições de expressões regulares de um arquivo JSON (`RegexMap.json`) e os aplica aos arquivos de destino. A criação de backup é opcional antes das alterações. O módulo agora fornece saída detalhada, incluindo o total de substituições regex por arquivo e um resumo geral ao final da execução. Parâmetros adicionais como `-RegexMapPath`, `-Quiet`, `-Log` e `-ProgressAction` são suportados para maior flexibilidade e controle. Esta ferramenta é útil para engenheiros e desenvolvedores que trabalham com automação industrial e precisam modernizar ou migrar programas de CLP legados.</maml:para>
+      <maml:para>O módulo Format-TextByRegex fornece uma função para automatizar a conversão de arquivos do formato RSS para o formato ACD, comum em cenários de migração ou integração de CLPs. A função lê um conjunto de padrões e substituições de expressões regulares de um arquivo JSON (`RegexMap.json`) e os aplica aos arquivos de destino. A criação de backup é opcional antes das alterações. O módulo agora fornece saída detalhada, incluindo o total de substituições regex por arquivo e um resumo geral ao final da execução. Parâmetros adicionais como `-RegexMapPath`, `-Quiet`, `-Log` e `-ProgressAction` são suportados para maior flexibilidade e controle. Esta ferramenta é útil para engenheiros e desenvolvedores que trabalham com automação industrial e precisam modernizar ou migrar programas de CLP legados.</maml:para>
       <maml:para>&gt; [!NOTE] &gt; O arquivo `RegexMap.json` deve estar no mesmo diretório do módulo, a menos que um caminho personalizado seja especificado com `-RegexMapPath`. Cada entrada no JSON deve conter as propriedades `Pattern` e `Replacement`.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Edit-PlcFile</maml:name>
+        <maml:name>Format-TextByRegex</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:description>
@@ -77,7 +77,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="L">
           <maml:name>Log</maml:name>
           <maml:description>
-            <maml:para>Cria um arquivo de log detalhado do processamento, salvo no mesmo diretório informado em `-Path` com o nome `Edit-PlcFile_&lt;data&gt;.log`.</maml:para>
+            <maml:para>Cria um arquivo de log detalhado do processamento, salvo no mesmo diretório informado em `-Path` com o nome `Format-TextByRegex_&lt;data&gt;.log`.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -163,7 +163,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="No" position="named" aliases="L">
         <maml:name>Log</maml:name>
         <maml:description>
-          <maml:para>Cria um arquivo de log detalhado do processamento, salvo no mesmo diretório informado em `-Path` com o nome `Edit-PlcFile_&lt;data&gt;.log`.</maml:para>
+          <maml:para>Cria um arquivo de log detalhado do processamento, salvo no mesmo diretório informado em `-Path` com o nome `Format-TextByRegex_&lt;data&gt;.log`.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -216,49 +216,49 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Edit-PlcFile -Path "C:\Temp\PlcFiles.xml"</dev:code>
+        <dev:code>PS C:\&gt; Format-TextByRegex -Path "C:\Temp\PlcFiles.xml"</dev:code>
         <dev:remarks>
           <maml:para>Formata o arquivo `PlcFiles.xml`, aplica as substituições regex usando o RegexMap.json padrão e não cria backup. A função converte formatos como "{::[LinkName]B3:0/0}" para "{::[LinkName]B3[0].0}". Ao final, exibe o número de substituições realizadas.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Edit-PlcFile -Path "C:\Temp\PlcFiles.xml" -Backup</dev:code>
+        <dev:code>PS C:\&gt; Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup</dev:code>
         <dev:remarks>
           <maml:para>Formata o arquivo `PlcFiles.xml`, aplica as substituições regex e cria um backup antes de realizar alterações.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.xml"</dev:code>
+        <dev:code>PS C:\&gt; Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.xml"</dev:code>
         <dev:remarks>
           <maml:para>Processa todos os arquivos `.xml` no diretório `C:\Temp\PlcFiles`, aplica as substituições regex definidas no RegexMap.json e não cria backups. Útil para converter múltiplos arquivos de uma vez.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.txt"</dev:code>
+        <dev:code>PS C:\&gt; Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.txt"</dev:code>
         <dev:remarks>
           <maml:para>Processa todos os arquivos `.txt` no diretório, aplicando as substituições regex.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup</dev:code>
+        <dev:code>PS C:\&gt; Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup</dev:code>
         <dev:remarks>
           <maml:para>Processa todos os arquivos `.csv` no diretório, cria um backup para cada arquivo e aplica as substituições regex.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 6 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Edit-PlcFile -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet</dev:code>
+        <dev:code>PS C:\&gt; Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet</dev:code>
         <dev:remarks>
           <maml:para>Processa todos os arquivos `.xml` no diretório usando um arquivo de regex personalizado e suprime a saída no host, retornando apenas o objeto de resultado.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 7 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Edit-PlcFile -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet -Log</dev:code>
+        <dev:code>PS C:\&gt; Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet -Log</dev:code>
         <dev:remarks>
           <maml:para>Processa todos os arquivos `.xml` no diretório usando um arquivo de regex personalizado, suprime a saída no host, retorna apenas o objeto de resultado e cria um arquivo de log salvo no mesmo diretório.</maml:para>
         </dev:remarks>

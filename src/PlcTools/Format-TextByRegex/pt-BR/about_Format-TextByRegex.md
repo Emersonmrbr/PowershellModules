@@ -1,10 +1,10 @@
-# Edit-PlcFile
+# Format-TextByRegex
 
-## about_Edit-PlcFile
+## about_Format-TextByRegex
 
 # TOPIC
 
-about_Edit-PlcFile
+about_Format-TextByRegex
 
 # SHORT DESCRIPTION
 
@@ -12,7 +12,7 @@ Converte arquivos no formato RSS (Rockwell Software) para o formato ACD (Allen-B
 
 # LONG DESCRIPTION
 
-O módulo Edit-PlcFile fornece uma função para automatizar a conversão de arquivos do formato RSS para o formato ACD, comum em cenários de migração ou integração de CLPs. A função lê um conjunto de padrões e substituições de expressões regulares de um arquivo JSON (`RegexMap.json`) e os aplica aos arquivos de destino. A criação de backup é opcional antes das alterações. O módulo agora fornece saída detalhada, incluindo o total de substituições regex por arquivo e um resumo geral ao final da execução. Parâmetros adicionais como `-RegexMapPath`, `-Quiet`, `-Log` e `-ProgressAction` são suportados para maior flexibilidade e controle. Esta ferramenta é útil para engenheiros e desenvolvedores que trabalham com automação industrial e precisam modernizar ou migrar programas de CLP legados.
+O módulo Format-TextByRegex fornece uma função para automatizar a conversão de arquivos do formato RSS para o formato ACD, comum em cenários de migração ou integração de CLPs. A função lê um conjunto de padrões e substituições de expressões regulares de um arquivo JSON (`RegexMap.json`) e os aplica aos arquivos de destino. A criação de backup é opcional antes das alterações. O módulo agora fornece saída detalhada, incluindo o total de substituições regex por arquivo e um resumo geral ao final da execução. Parâmetros adicionais como `-RegexMapPath`, `-Quiet`, `-Log` e `-ProgressAction` são suportados para maior flexibilidade e controle. Esta ferramenta é útil para engenheiros e desenvolvedores que trabalham com automação industrial e precisam modernizar ou migrar programas de CLP legados.
 
 > [!NOTE]
 > O arquivo `RegexMap.json` deve estar no mesmo diretório do módulo, a menos que um caminho personalizado seja especificado com `-RegexMapPath`. Cada entrada no JSON deve conter as propriedades `Pattern` e `Replacement`.
@@ -26,7 +26,7 @@ O módulo Edit-PlcFile fornece uma função para automatizar a conversão de arq
 ## Example 1
 
 ```powershell
-PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles.xml"
+PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles.xml"
 ```
 
 Formata o arquivo `PlcFiles.xml`, aplica as substituições regex usando o RegexMap.json padrão e não cria backup. A função converte formatos como "{::[LinkName]B3:0/0}" para "{::[LinkName]B3[0].0}". Ao final, exibe o número de substituições realizadas.
@@ -34,7 +34,7 @@ Formata o arquivo `PlcFiles.xml`, aplica as substituições regex usando o Regex
 ## Example 2
 
 ```powershell
-PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles.xml" -Backup
+PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup
 ```
 
 Formata o arquivo `PlcFiles.xml`, aplica as substituições regex e cria um backup antes de realizar alterações.
@@ -42,7 +42,7 @@ Formata o arquivo `PlcFiles.xml`, aplica as substituições regex e cria um back
 ## Example 3
 
 ```powershell
-PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.xml"
+PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.xml"
 ```
 
 Processa todos os arquivos `.xml` no diretório `C:\Temp\PlcFiles`, aplica as substituições regex definidas no RegexMap.json e não cria backups. Útil para converter múltiplos arquivos de uma vez.
@@ -50,7 +50,7 @@ Processa todos os arquivos `.xml` no diretório `C:\Temp\PlcFiles`, aplica as su
 ## Example 4
 
 ```powershell
-PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.txt"
+PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.txt"
 ```
 
 Processa todos os arquivos `.txt` no diretório, aplicando as substituições regex.
@@ -58,7 +58,7 @@ Processa todos os arquivos `.txt` no diretório, aplicando as substituições re
 ## Example 5
 
 ```powershell
-PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
+PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
 ```
 
 Processa todos os arquivos `.csv` no diretório, cria um backup para cada arquivo e aplica as substituições regex.
@@ -66,7 +66,7 @@ Processa todos os arquivos `.csv` no diretório, cria um backup para cada arquiv
 ## Example 6
 
 ```powershell
-PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
+PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 ```
 
 Processa todos os arquivos `.xml` no diretório usando um arquivo de regex personalizado e suprime a saída no host, retornando apenas o objeto de resultado.
@@ -74,7 +74,7 @@ Processa todos os arquivos `.xml` no diretório usando um arquivo de regex perso
 ## Example 7
 
 ```powershell
-PS C:\> Edit-PlcFile -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet -Log
+PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet -Log
 ```
 
 Processa todos os arquivos `.xml` no diretório usando um arquivo de regex personalizado, suprime a saída no host, retorna apenas o objeto de resultado e cria um arquivo de log salvo no mesmo diretório.

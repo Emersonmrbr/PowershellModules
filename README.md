@@ -15,7 +15,9 @@ This repository serves as a central point for the development and distribution o
 The repository is organized into subfolders, each representing a specific PowerShell module or tool. For example:
 
 - [`PlcTools`](src/PlcTools): A collection of PowerShell tools and modules focused on PLC programming and automation tasks.
-  - [`RssToAcd`](src/PlcTools/RssToAcd): A module for converting RSS files to ACD format using configurable regular expressions.
+  - [`Format-TextByRegex`](src/PlcTools/Format-TextByRegex): A module for converting RSS files to ACD format using configurable regular expressions.
+- [ÙtilityTools`](src/UtilityTools): A collection of PowerShell tools and modules focused on automation tasks.
+  - [`Clean-Temporary`](src/UtilityTools/Clear-Temporary): A module for clean the temporary files from system.
 
 Each module contains its own scripts, manifests, documentation, and configuration files.
 
@@ -45,7 +47,9 @@ Este repositório serve como ponto central para o desenvolvimento e distribuiç�
 O repositório é organizado em subpastas, cada uma representando um módulo ou ferramenta PowerShell específica. Por exemplo:
 
 - [`PlcTools`](src/PlcTools): Uma coleção de ferramentas e módulos PowerShell focados em programação de CLPs e tarefas de automação.
-  - [`RssToAcd`](src/PlcTools/RssToAcd): Um módulo para converter arquivos RSS para o formato ACD usando expressões regulares configuráveis.
+  - [`Format-TextByRegex`](src/PlcTools/Format-TextByRegex): Um módulo para converter arquivos RSS para o formato ACD usando expressões regulares configuráveis.
+- [ÙtilityTools`](src/UtilityTools): Uma coleção de ferraments e módulos PowerShell focados em tarefas de automação.
+  - [`Clean-Temporary`](src/UtilityTools/Clear-Temporary): Um módulo para limpar os arquivos temprarios do sistema.
 
 Cada módulo contém seus próprios scripts, manifestos, documentação e arquivos de configuração.
 

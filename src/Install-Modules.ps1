@@ -3,7 +3,7 @@
 
 # Script principal
 
-$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "PlcTools\Edit-PlcFile\Install-Edit-PlcFile.ps1"
+$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "PlcTools\Format-TextByRegex\Install-Format-TextByRegex.ps1"
 Write-Host "$scriptPath"
 Invoke-Expression $scriptPath
 & $scriptPath
