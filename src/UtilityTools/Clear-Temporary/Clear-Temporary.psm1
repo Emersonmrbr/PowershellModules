@@ -45,7 +45,7 @@ function Clear-Temporary {
   function Start-Countdown {
     param([string]$ActionText)
     Start-Sleep 10
-    0..9 | ForEach-Object { Write-Status "$ActionText in $_ seconds..." }
+    0..9 | ForEach-Object { Write-Status "[INFO] $ActionText in $_ seconds..." }
   }
 
   try {
@@ -92,10 +92,12 @@ function Clear-Temporary {
       $logMessage = "$($item.'Date Processed') - Cleared $($item.'Total Deleted') files from $($item.Path) ($($item.'Released (MB)') MB)"
       Add-Content -Path $logPath -Value $logMessage
     }
-    Write-Status "[INFO] Log saved to $logPath"
+    Write-Status "[Ok] Log saved to $logPath" "OK"
   }
 
-  return $results
+  if (-not $Quiet) {
+    return $results
+  }
 }
 
 Export-ModuleMember -Function Clear-Temporary
