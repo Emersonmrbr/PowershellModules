@@ -35,7 +35,7 @@ function Install-Clear-Temporary {
   )
   # User's module installation path
   $Destination = Join-Path $env:USERPROFILE "Documents\PowerShell\Modules"
-  
+  # Ensure the destination path exists
   # Create the folder if it doesn't exist
   if (-Not (Test-Path $Destination)) {
     New-Item -ItemType Directory -Path $Destination | Out-Null
@@ -46,12 +46,11 @@ function Install-Clear-Temporary {
     # Perform file copy, excluding unwanted extensions
     $excludeExtensions = @("*.md", "*.ps1", "*.bak")
     Copy-Item -Path $Path -Destination $Destination -Force -Recurse -Exclude $excludeExtensions -ErrorAction Stop
-    
+    # Copy the module files to the destination
     Write-Status "[OK] Clear-Temporary module installed from $Path" "OK"
     Write-Status "[OK] Clear-Temporary module installed at $Destination" "OK"
     Write-Status "`n[OK] To load the module in your current session, run:" "OK"
     Write-Status "[OK] Import-Module Clear-Temporary" "OK"
-    
   }
   catch {
     Write-Status "Failed to install Clear-Temporary module: $_" "ERROR"

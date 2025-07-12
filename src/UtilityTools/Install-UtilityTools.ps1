@@ -1,3 +1,40 @@
-$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "Clear-Temporary\Install-Clear-Temporary.ps1"
-Write-Host "$scriptPath"
-Invoke-Expression $scriptPath
+<#
+.SYNOPSIS
+    Executes the Clear-Temporary module installation script.
+
+.DESCRIPTION
+    Locates and executes the installation script for the Clear-Temporary module
+    from the module's subdirectory.
+
+.NOTES
+    File Name      : Invoke-Installation.ps1
+    Author         : Emerson Martins Brito
+    Module Version : 1.0.0
+    Date           : 2025-07-04
+
+.EXAMPLE
+    .\Invoke-Installation.ps1
+    Runs the Clear-Temporary module installation script.
+#>
+
+function Install-UtilityTools {
+  [CmdletBinding()]
+  param()
+
+  try {
+    $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "Clear-Temporary\Install-Clear-Temporary.ps1"
+        
+    if (-not (Test-Path -Path $scriptPath)) {
+      throw "Installation script not found at: $scriptPath"
+    }
+
+    Write-Verbose -Message "Found installation script at: $scriptPath"
+    & $scriptPath
+  }
+  catch {
+    Write-Error -Message "Failed to execute installation: $_"
+    exit 1
+  }
+}
+
+Install-UtilityTools 
