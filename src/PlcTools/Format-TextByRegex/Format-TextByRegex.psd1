@@ -32,7 +32,7 @@
   Description       = 'Tools for manipulating XML files using regex in PowerShell.'
 
   # Minimum version of the PowerShell engine required by this module
-  PowerShellVersion = '7.5.2'
+  PowerShellVersion = '7.4.7'
 
   # Name of the PowerShell host required by this module
   # PowerShellHostName = ''
