@@ -26,10 +26,10 @@ jobs:
           Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
 
       - name: Test-ModuleManifest
-        run: |
-          Test-ModuleManifest -Path .\src\UtilityTools\Clear-Temporary\Clear-Temporary.psd1
-          Test-ModuleManifest -Path .\src\PlcTools\Format-TextByRegex\Format-TextByRegex.psd1
         shell: pwsh
+        run: |
+          Test-ModuleManifest -Path .\src\PlcTools\Format-TextByRegex\Format-TextByRegex.psd1
+          Test-ModuleManifest -Path .\src\UtilityTools\Clear-Temporary\Clear-Temporary.psd1
 
       - name: Lint with PSScriptAnalyzer
         shell: pwsh
@@ -52,5 +52,5 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
         shell: pwsh
         run: |
-          Publish-Module -Path /src/PlcTools/Format-TextByRegex -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
-          Publish-Module -Path /src/UtilityTools/Clear-Temporary -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
+          Publish-Module -Path .\src\PlcTools\Format-TextByRegex -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
+          Publish-Module -Path .\src\UtilityTools\Clear-Temporary -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
