@@ -27,10 +27,10 @@
     CompanyName       = 'Núcleo MAP'
 
     # Copyright statement for this module
-    Copyright         = '(c) Emerson Martins Brito. All rights reserved.'
+    Copyright         = '(c) 2025 Emerson Martins Brito. All rights reserved.'
 
     # Description of the functionality provided by this module
-    # Description = ''
+    Description       = 'Tool for clean temporary files from system'
 
     # Minimum version of the PowerShell engine required by this module
     PowerShellVersion = '7.4.7'
