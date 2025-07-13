@@ -9,7 +9,7 @@ then copies the module files (.psm1, .psd1, .xml) to that location. Instructions
 .NOTES
 File Name      : Install-Clear-Temporary.ps1
 Author         : Emerson Martins Brito
-Module Version : 1.0.0
+Module Version : 1.0.1
 Date           : 2025-07-04
 
 .EXAMPLE
