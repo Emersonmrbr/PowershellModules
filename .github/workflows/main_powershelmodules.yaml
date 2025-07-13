@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  test-and-publish-to-gallery:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,9 +43,6 @@ jobs:
               Write-Output "There were $($errors.Count) errors and $($warnings.Count) warnings total."
           }
 
-  publish-to-gallery:
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v4
       - name: Build and publish
         env:
