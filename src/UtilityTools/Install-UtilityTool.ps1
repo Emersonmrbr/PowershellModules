@@ -17,13 +17,13 @@
     Runs the Clear-Temporary module installation script.
 #>
 
-function Install-UtilityTools {
+function Install-UtilityTool {
   [CmdletBinding()]
   param()
 
   try {
     $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "Clear-Temporary\Install-Clear-Temporary.ps1"
-        
+
     if (-not (Test-Path -Path $scriptPath)) {
       throw "Installation script not found at: $scriptPath"
     }
@@ -37,4 +37,4 @@ function Install-UtilityTools {
   }
 }
 
-Install-UtilityTools 
+Install-UtilityTool

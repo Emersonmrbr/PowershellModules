@@ -41,7 +41,7 @@ function Install-Clear-Temporary {
     New-Item -ItemType Directory -Path $Destination | Out-Null
     Write-Status "[OK] Folder created at: $Destination" "OK"
   }
-  
+  # Check if the module folder already exists
   try {
     # Perform file copy, excluding unwanted extensions
     $excludeExtensions = @("*.md", "*.ps1", "*.bak")

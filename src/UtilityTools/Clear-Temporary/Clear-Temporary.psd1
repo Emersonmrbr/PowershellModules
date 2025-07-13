@@ -87,7 +87,7 @@
     # ModuleList = @()
 
     # List of all files packaged with this module
-    FileList          = @('Clear-Temporary.psm1', 'Clear-Temporary.psd1', 'Clear-Temporary-Help-en-US.xml', 'Clear-Temporary-Help-pt-BR.xml', 'Clear-Temporary-Help.xml')
+    FileList          = @('Clear-Temporary.psm1', 'Clear-Temporary.psd1')
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData       = @{

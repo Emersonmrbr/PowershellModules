@@ -38,6 +38,8 @@
 
 function Format-TextByRegex {
   [CmdletBinding(SupportsShouldProcess = $true)]
+  [OutputType([System.Collections.Generic.List[PSObject]])]
+  [OutputType([void])]
   param(
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]

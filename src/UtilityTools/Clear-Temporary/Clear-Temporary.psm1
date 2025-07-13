@@ -1,5 +1,46 @@
+<#
+.SYNOPSIS
+    Cleans temporary files and optionally performs system maintenance tasks.
+.DESCRIPTION
+    The Clear-Temporary function removes temporary files from system locations and can optionally:
+    - Run Disk Cleanup utility
+    - Restart or shutdown the computer
+    - Create a log of cleaned files
+.PARAMETER Quiet
+    Suppresses non-essential output. [Alias: Q]
+.PARAMETER Log
+    Creates a log file with cleaning results in %TEMP%. [Alias: L]
+.PARAMETER Restart
+    Restarts the computer after cleaning (10 second countdown). [Alias: R]
+.PARAMETER Shutdown
+    Shuts down the computer after cleaning (10 second countdown). [Alias: S]
+.PARAMETER ClearDisk
+    Runs Windows Disk Cleanup utility with comprehensive settings. [Alias: C]
+.EXAMPLE
+    PS> Clear-Temporary
+    Cleans temporary files from default locations with normal output.
+.EXAMPLE
+    PS> Clear-Temporary -ClearDisk -Log
+    Cleans temporary files, runs Disk Cleanup, and creates a log file.
+.EXAMPLE
+    PS> Clear-Temporary -Restart -Quiet
+    Cleans temporary files and restarts the computer without confirmation.
+.INPUTS
+    None. You cannot pipe input to this function.
+.OUTPUTS
+    System.Management.Automation.PSCustomObject showing cleaning results for each location.
+.NOTES
+    - Requires administrative privileges for full functionality
+    - Disk Cleanup uses preset configuration (sageset:65535)
+    - Default temp locations cleaned: %TEMP% and C:\Windows\Temp
+    - Log files are saved in %TEMP% with timestamp
+    - Restart/Shutdown have 10 second countdown
+#>
+
 function Clear-Temporary {
   [CmdletBinding(SupportsShouldProcess = $true)]
+  [OutputType([System.Collections.Generic.List[PSObject]])]
+  [OutputType([void])]
   param(
     [Alias("Q")][switch] $Quiet,
     [Alias("L")][switch] $Log,
@@ -23,7 +64,7 @@ function Clear-Temporary {
     }
   }
 
-  function Remove-Files {
+  function Optimize-File {
     param([string]$Path)
     $content = Get-ChildItem -Path $Path -Recurse -Force -ErrorAction SilentlyContinue
     $originalSizeMB = ($content | Measure-Object Length -Sum).Sum / 1MB
@@ -42,22 +83,22 @@ function Clear-Temporary {
     }
   }
 
-  function Start-Countdown {
+  function Initialize-Countdown {
     param([string]$ActionText)
     Start-Sleep 10
-    0..9 | ForEach-Object { Write-Status "[INFO] $ActionText in $_ seconds..." }
+    0..9 | ForEach-Object { Write-Status -Message "[INFO] $ActionText in $_ seconds..." }
   }
 
   try {
     foreach ($path in $tempPaths) {
       if ((Test-Path $path) -and ($PSCmdlet.ShouldProcess($path, "Remove temporary files"))) {
-        $results.Add((Remove-Files $path))
+        $results.Add((Optimize-File $path))
       }
     }
-    Write-Status "[OK] Temporary files deleted successfully" "OK"
+    Write-Status -Message "[OK] Temporary files deleted successfully" -Type "OK"
   }
   catch {
-    Write-Status "Failed to delete temporary files: $_" "ERROR"
+    Write-Status -Message "Failed to delete temporary files: $_" -Type "ERROR"
   }
 
   if (($ClearDisk) -and ($PSCmdlet.ShouldProcess("Disk Cleanup", "Run cleanmgr"))) {
@@ -65,23 +106,23 @@ function Clear-Temporary {
       Start-Process cleanmgr -ArgumentList "/sageset:65535" -Wait
       Start-Process cleanmgr -ArgumentList "/sagerun:65535" -WindowStyle Normal -Wait
       Start-Process cleanmgr.exe -ArgumentList "/lowdisk /sagerun:65535" -WindowStyle Normal -Wait
-      Write-Status "[OK] Disk Cleanup completed successfully" "OK"
+      Write-Status -Message "[OK] Disk Cleanup completed successfully" -Type "OK"
     }
     catch {
-      Write-Status "Disk Cleanup operation failed: $_" "ERROR"
+      Write-Status -Message "Disk Cleanup operation failed: $_" -Type "ERROR"
     }
   }
   else {
-    Write-Status "[INFO] Disk Cleanup not performed"
+    Write-Status -Message "[INFO] Disk Cleanup not performed"
   }
 
   if ($Restart) {
-    Write-Status "System will restart in 10 seconds..." "INFO" "Continue"
+    Write-Status -Message "System will restart in 10 seconds..." -Type "INFO" -InformationAction "Continue"
     Start-Countdown "Restarting"
     Restart-Computer -Force
   }
   elseif ($Shutdown) {
-    Write-Status "System will shut down in 10 seconds..." "INFO" "Continue"
+    Write-Status -Message "System will shut down in 10 seconds..." -Type "INFO" -InformationAction "Continue"
     Start-Countdown "Shutting down"
     Stop-Computer -Force
   }
@@ -92,7 +133,7 @@ function Clear-Temporary {
       $logMessage = "$($item.'Date Processed') - Cleared $($item.'Total Deleted') files from $($item.Path) ($($item.'Released (MB)') MB)"
       Add-Content -Path $logPath -Value $logMessage
     }
-    Write-Status "[Ok] Log saved to $logPath" "OK"
+    Write-Status -Message "[Ok] Log saved to $logPath" -Type "OK"
   }
 
   if (-not $Quiet) {

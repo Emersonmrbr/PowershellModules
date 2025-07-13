@@ -35,23 +35,23 @@ function Install-Format-TextByRegex {
   )
   # User's module installation path
   $Destination = Join-Path $env:USERPROFILE "Documents\PowerShell\Modules"
-  
+
   # Create the folder if it doesn't exist
   if (-Not (Test-Path $Destination)) {
     New-Item -ItemType Directory -Path $Destination | Out-Null
     Write-Status "[OK] Folder created at: $Destination" "OK"
   }
-  
+
   try {
     # Perform file copy, excluding unwanted extensions
     $excludeExtensions = @("*.md", "*.ps1", "*.bak")
     Copy-Item -Path $Path -Destination $Destination -Force -Recurse -Exclude $excludeExtensions -ErrorAction Stop
-    
+
     Write-Status "[OK] Format-TextByRegex module installed from $Path" "OK"
     Write-Status "[OK] Format-TextByRegex module installed at $Destination" "OK"
     Write-Status "`n[OK] To load the module in your current session, run:" "OK"
     Write-Status "[OK] Import-Module Format-TextByRegex" "OK"
-    
+
   }
   catch {
     Write-Status "Failed to install Format-TextByRegex module: $_" "ERROR"

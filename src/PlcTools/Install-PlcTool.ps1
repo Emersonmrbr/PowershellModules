@@ -17,13 +17,12 @@
     Runs the Format-TextByRegex module installation script.
 #>
 
-function Install-PlcTools {
+function Install-PlcTool {
   [CmdletBinding()]
   param()
 
   try {
     $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath "Format-TextByRegex\Install-Format-TextByRegex.ps1"
-        
     if (-not (Test-Path -Path $scriptPath)) {
       throw "Installation script not found at: $scriptPath"
     }
@@ -37,5 +36,4 @@ function Install-PlcTools {
   }
 }
 
-Install-PlcTools 
-
+Install-PlcTool
