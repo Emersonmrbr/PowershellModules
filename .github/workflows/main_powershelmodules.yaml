@@ -45,4 +45,4 @@ jobs:
         shell: pwsh
         run: |
           Publish-Module -Path .\src\PlcTools\Format-TextByRegex -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
-          Publish-Module -Path .\src\UtilityTools\Clear-Temporary -NuGetApiKey $env:NUGET_KEY WhatIf -Verbose
+          Publish-Module -Path .\src\UtilityTools\Clear-Temporary -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
