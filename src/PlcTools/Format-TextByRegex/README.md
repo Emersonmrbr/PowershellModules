@@ -84,7 +84,7 @@ Format-TextByRegex -Path "C:\Path\To\File.xml" -Backup
 
 ### 🧑‍💻 Usage Examples
 
-##### Examplo 1
+##### Example 1
 
 ```powershell
 PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles.xml"
@@ -92,7 +92,7 @@ PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles.xml"
 
 Formats the file `PlcFiles.xml`, applies the regex replacements using the default RegexMap.json, and does not create a backup. The function will convert formats like "{::[LinkName]B3:0/0}" to "{::[LinkName]B3[0].0}". At the end, it displays the number of replacements made.
 
-##### Examplo 2
+##### Example 2
 
 ```powershell
 PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup
@@ -100,7 +100,7 @@ PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup
 
 Formats the file `PlcFiles.xml`, applies the regex replacements, and creates a backup before making changes.
 
-##### Examplo 3
+##### Example 3
 
 ```powershell
 PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.xml"
@@ -108,7 +108,7 @@ PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.xml"
 
 Processes all `.xml` files in the `C:\Temp\PlcFiles` directory, applies the regex replacements defined in RegexMap.json, and does not create backups. Useful for converting multiple files at once.
 
-##### Examplo 4
+##### Example 4
 
 ```powershell
 PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.txt"
@@ -116,7 +116,7 @@ PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.txt"
 
 Processes all `.txt` files in the directory, applying the regex replacements.
 
-##### Examplo 5
+##### Example 5
 
 ```powershell
 PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
@@ -124,7 +124,7 @@ PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -Backup
 
 Processes all `.csv` files in the directory, creates a backup for each file, and applies the regex replacements.
 
-##### Examplo 6
+##### Example 6
 
 ```powershell
 PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
@@ -132,7 +132,7 @@ PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\Reg
 
 Processes all `.xml` files in the directory using a custom regex map file and suppresses output to the host, returning only the result object.
 
-##### Examplo 7
+##### Example 7
 
 ```powershell
 PS C:\> Format-TextByRegex -Path "C:\Temp\PlcFiles" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet -Log
@@ -184,7 +184,11 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ---
 
-# 📦 Format-TextByRegex (Português - pt-BR)
+# 📦 Format-TextByRegex
+
+---
+
+## Português - pt-BR
 
 Ferramenta PowerShell para realizar substituições em massa em arquivos XML usando expressões regulares pré-configuradas.  
 Ideal para automatizar atualizações de versões, autores, datas e outros campos em arquivos de configuração RSS para sistemas ACD.

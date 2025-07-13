@@ -13,13 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Test-ModuleManifest
+      - name: Test all Module Manifests
         shell: pwsh
         run: |
-          Test-ModuleManifest -Path .\src\PlcTools\Format-TextByRegex\Format-TextByRegex.psd1
-          Test-ModuleManifest -Path .\src\UtilityTools\Clear-Temporary\Clear-Temporary.psd1
+          Get-ChildItem -Path .\src\**\*.psd1 | ForEach-Object {
+              Write-Output "Testing manifest: $($_.FullName)"
+              Test-ModuleManifest -Path $_.FullName
+          }
 
-      - uses: actions/checkout@v4
       - name: Install PSScriptAnalyzer module
         shell: pwsh
         run: |
@@ -29,7 +30,7 @@ jobs:
       - name: Lint with PSScriptAnalyzer
         shell: pwsh
         run: |
-          Invoke-ScriptAnalyzer -Path .\src\*.psm1 -Setting ".\src\ScriptAnalyzerProfile.txt" -Recurse -Outvariable issues
+          Invoke-ScriptAnalyzer -Path .\src\**\*.psm1 -Setting ".\src\ScriptAnalyzerProfile.txt" -Recurse -OutVariable issues
           $errors   = $issues.Where({$_.Severity -eq 'Error'})
           $warnings = $issues.Where({$_.Severity -eq 'Warning'})
           if ($errors) {
@@ -38,11 +39,12 @@ jobs:
               Write-Output "There were $($errors.Count) errors and $($warnings.Count) warnings total."
           }
 
-      - uses: actions/checkout@v4
-      - name: Build and publish
+      - name: Build and publish (dry-run)
         env:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
         shell: pwsh
         run: |
-          Publish-Module -Path .\src\PlcTools\Format-TextByRegex -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
-          Publish-Module -Path .\src\UtilityTools\Clear-Temporary -NuGetApiKey $env:NUGET_KEY WhatIf -Verbose
+          Get-ChildItem -Path .\src\* -Directory | ForEach-Object {
+              Write-Output "Publishing module: $($_.FullName)"
+              Publish-Module -Path $_.FullName -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
+          }

@@ -29,11 +29,17 @@ Each tool or module is organized in its own subfolder within `PlcTools`. For exa
 
 ```powershell
 Import-Module .\Format-TextByRegex\Format-TextByRegex.psm1
+```
 
-# Process a single file and create a backup
+#### Process a single file and create a backup
+
+```powershell
 Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup
+```
 
-# Process all .csv files in a directory, using a custom regex map, and suppress output
+#### Process all .csv files in a directory, using a custom regex map, and suppress output
+
+```powershell
 Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 ```
 
@@ -74,11 +80,17 @@ Cada ferramenta ou módulo está organizada em sua própria subpasta dentro de `
 
 ```powershell
 Import-Module .\Format-TextByRegex\Format-TextByRegex.psm1
+```
 
-# Processar um único arquivo e criar um backup
+#### Processar um único arquivo e criar um backup
+
+```powershell
 Format-TextByRegex -Path "C:\Temp\PlcFiles.xml" -Backup
+```
 
-# Processar todos os arquivos .csv em um diretório, usando um regex map personalizado e suprimindo a saída
+#### Processar todos os arquivos .csv em um diretório, usando um regex map personalizado e suprimindo a saída
+
+```powershell
 Format-TextByRegex -Path "C:\Temp\PlcFiles" -Extension "*.csv" -RegexMapPath "C:\Custom\RegexMap.json" -Quiet
 ```
 
