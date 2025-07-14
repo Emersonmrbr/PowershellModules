@@ -58,13 +58,11 @@ jobs:
             $uri = "https://www.powershellgallery.com/api/v2/FindPackagesById()?id='$$moduleName'" 
             $response = Invoke-RestMethod -Uri $uri -Method Get
             write-output "Checking module: $($manifest.RootModule) version $($manifest.ModuleVersion)"
-            write-output "Checking module: $($response.properties.version)"
-            foreach ($res in $response) {
-              if ($res.Version -eq $manifest.ModuleVersion) {
+            write-output "Checking module: $($response.properties.version) $($response.properties.id)"
+              if ($response.properties.version -eq $manifest.ModuleVersion) {
                 Write-Output "Module $($manifest.ModuleRoot) version $($manifest.ModuleVersion) already exists in the gallery."
                 } else {
                   Write-Output "Module $($manifest.ModuleRoot) version $($manifest.ModuleVersion) is new or updated."
                   Publish-Module -Path $module.DirectoryName -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
               }
-            }
           }
