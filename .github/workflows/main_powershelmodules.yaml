@@ -49,7 +49,6 @@ jobs:
         shell: pwsh
         run: |
           $modules = Get-ChildItem -Path .\src -Include *.psd1 -Recurse
-          write-output "Found $($modules.Count) module manifests to verify."
           foreach ($module in $modules) {
           write-output "Verifying module: $($module.FullName)"
             $manifest = Import-PowerShellDataFile -Path $module.FullName
@@ -58,11 +57,6 @@ jobs:
             $uri = "https://www.powershellgallery.com/api/v2/FindPackagesById()?id='$$moduleName'" 
             $response = Invoke-RestMethod -Uri $uri -Method Get
             write-output "Checking module: $($manifest.RootModule) version $($manifest.ModuleVersion)"
-            foreach ($items in $response.properties) {
-              foreach ($item in $items) {
-                write-output "Testing module: $($item.id) version $($item.version)"
-              }
-            }
               if ($response.properties.version -eq $manifest.ModuleVersion) {
                 Write-Output "Module $($manifest.ModuleRoot) version $($manifest.ModuleVersion) already exists in the gallery."
                 } else {
