@@ -42,7 +42,9 @@ jobs:
               Write-Output "There were $($errors.Count) errors and $($warnings.Count) warnings total."
           }
 
-      - name: Verify Module Version
+      - name: Verify Module Version, Build and publish (dry-run)
+        env:
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         id: verifify
         shell: pwsh
         run: |
@@ -58,15 +60,7 @@ jobs:
                 } else {
                   Write-Output "Module $($manifest.Name) version $($manifest.ModuleVersion) is new or updated."
                   echo "publish=notexist" >> "$GITHUB_OUTPUT"
+                  Publish-Module -Path $modules.DirectoryName -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
               }
             }
           }
-
-      - name: Build and publish (dry-run)
-        env:
-          NUGET_KEY: ${{ secrets.NUGET_KEY }}
-        shell: pwsh
-        run: |
-          echo $publish
-          Publish-Module -Path .\src\PlcTools\Format-TextByRegex -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
-          Publish-Module -Path .\src\UtilityTools\Clear-Temporary -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
