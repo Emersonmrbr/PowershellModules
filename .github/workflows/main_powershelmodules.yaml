@@ -19,9 +19,14 @@ jobs:
       - name: Test all Module Manifests
         shell: pwsh
         run: |
-          Get-ChildItem -Path .\src\**\*.psd1 | ForEach-Object {
-              Write-Output "Testing manifest: $($_.FullName)"
-              Test-ModuleManifest -Path $_.FullName
+          $modules = Get-ChildItem -Path .\src -Include *.psm1 -Recurse
+          write-output "Found $($modules.Count) module manifests to verify."
+          foreach ($module in $modules) {
+              Write-Output "Testing module: $($module.FullName)"
+              Test-ModuleManifest -Path $module.FullName
+              if (-not $manifest) {
+                  Write-Error "Failed to import manifest for module: $($module.FullName)" -ErrorAction Stop
+              }
           }
 
       - name: Install PSScriptAnalyzer module
