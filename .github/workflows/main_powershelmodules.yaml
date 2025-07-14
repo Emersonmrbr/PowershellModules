@@ -60,7 +60,7 @@ jobs:
               $moduleVersion = $manifest.ModuleVersion
               $modulePath = $manifestFile.DirectoryName
 
-              Write-Output "Check module: $moduleName and version: $moduleVersion"
+              Write-Output "Check module version before publish: $moduleName and version: $moduleVersion"
 
               $response = Find-Module -Name $moduleName -ErrorAction Stop
               write-output "Module found in powershell gallery name: $($response.Name) and version: $($response.Version)"
@@ -73,7 +73,7 @@ jobs:
               }
 
               Write-Output "Publishing $moduleName v$moduleVersion..."
-              Publish-Module -Path $modulePath -NuGetApiKey $env:NUGET_KEY -Verbose -WhatIf
+              Publish-Module -Path $modulePath -NuGetApiKey $env:NUGET_KEY -Verbose
 
             } catch {
               Write-Error "Error processing module $($manifestFile.FullName): $_"
