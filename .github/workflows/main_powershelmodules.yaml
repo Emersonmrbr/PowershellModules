@@ -60,7 +60,7 @@ jobs:
             write-output "Checking module: $($manifest.RootModule) version $($manifest.ModuleVersion)"
             # write-output "Checking module: $($response.properties.version) $($response.properties.Id) $($response.properties.title)"
             foreach ($item in $response.properties) {
-              write-output "Testing module: $($item)"
+              write-output "Testing module: $($item.Id) version $($item.version)"
             }
               if ($response.properties.version -eq $manifest.ModuleVersion) {
                 Write-Output "Module $($manifest.ModuleRoot) version $($manifest.ModuleVersion) already exists in the gallery."
