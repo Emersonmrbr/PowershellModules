@@ -1,4 +1,4 @@
-name: Test and Publish PowerShell Module
+name: Testar e Publicar Módulos PowerShell
 
 on:
   push:
@@ -7,60 +7,77 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-and-publish-to-gallery:
+  testar-e-publicar:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Test all Module Manifests
+      - name: Testar todos os manifestos
         shell: pwsh
         run: |
-          $modules = Get-ChildItem -Path .\src -Include *.psd1 -Recurse
-          write-output "Found $($modules.Count) module manifests to verify."
-          foreach ($module in $modules) {
-              Write-Output "Testing module: $($module.FullName)"
-              Test-ModuleManifest -Path $module.FullName -ErrorAction Stop
+          $manifests = Get-ChildItem -Path ./src -Include *.psd1 -Recurse
+          Write-Output "Encontrados $($manifests.Count) manifestos para teste."
+          foreach ($m in $manifests) {
+            Write-Output "Testando: $($m.FullName)"
+            Test-ModuleManifest -Path $m.FullName -ErrorAction Stop
           }
 
-      - name: Install PSScriptAnalyzer module
+      - name: Instalar PSScriptAnalyzer
         shell: pwsh
         run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
           Install-Module PSScriptAnalyzer -ErrorAction Stop
 
-      - name: Lint with PSScriptAnalyzer
+      - name: Analisar código com ScriptAnalyzer
         shell: pwsh
         run: |
-          Invoke-ScriptAnalyzer -Path .\src\**\*.psm1 -Setting ".\src\ScriptAnalyzerProfile.txt" -Recurse -OutVariable issues
-          $errors   = $issues.Where({$_.Severity -eq 'Error'})
-          $warnings = $issues.Where({$_.Severity -eq 'Warning'})
+          $issues = Invoke-ScriptAnalyzer -Path ./src/**/*.psm1 -Setting ./src/ScriptAnalyzerProfile.txt -Recurse
+          $errors = $issues | Where-Object Severity -eq 'Error'
+          $warnings = $issues | Where-Object Severity -eq 'Warning'
+
           if ($errors) {
-              Write-Error "There were $($errors.Count) errors and $($warnings.Count) warnings total." -ErrorAction Stop
+            Write-Error "$($errors.Count) erros encontrados. $($warnings.Count) avisos."
+            exit 1
           } else {
-              Write-Output "There were $($errors.Count) errors and $($warnings.Count) warnings total."
+            Write-Output "Sem erros. $($warnings.Count) avisos encontrados."
           }
 
-      - name: Verify Module Version, Build and publish (dry-run)
+      - name: Verificar versão e publicar módulos (dinâmico)
         env:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
-        id: verifify
         shell: pwsh
         run: |
-          $modules = Get-ChildItem -Path .\src -Include *.psd1 -Recurse
-          foreach ($module in $modules) {
-          write-output "Verifying module: $($module.FullName)"
-            $manifest = Import-PowerShellDataFile -Path $module.FullName
-            $moduleName = $manifest.ModuleRoot -split('.psd1') 
-            write-output "Module Name: $($manifest.ModuleRoot)"
-            $uri = "https://www.powershellgallery.com/api/v2/FindPackagesById()?id='$$moduleName'" 
-            $response = Invoke-RestMethod -Uri $uri -Method Get
-            write-output "Checking module: $($manifest.RootModule) version $($manifest.ModuleVersion)"
-              if ($response.properties.version -eq $manifest.ModuleVersion) {
-                Write-Output "Module $($manifest.ModuleRoot) version $($manifest.ModuleVersion) already exists in the gallery."
-                } else {
-                  Write-Output "Module $($manifest.ModuleRoot) version $($manifest.ModuleVersion) is new or updated."
-                  Publish-Module -Path $module.DirectoryName -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
+          $manifests = Get-ChildItem -Path ./src -Include *.psd1 -Recurse
+
+          foreach ($manifestFile in $manifests) {
+            try {
+              Write-Output "Verificando módulo: $($manifestFile.FullName)"
+
+              $manifest = Import-PowerShellDataFile -Path $manifestFile.FullName
+              $moduleName = $manifest.RootModule -replace '\.psm1$', ''
+              $moduleVersion = $manifest.ModuleVersion
+              $modulePath = $manifestFile.DirectoryName
+
+              Write-Output "Módulo: $moduleName | Versão: $moduleVersion"
+
+              $url = "https://www.powershellgallery.com/api/v2/FindPackagesById()?id='$moduleName'"
+              $response = Invoke-RestMethod -Uri $url -ErrorAction Stop
+
+              $existingVersions = $response.entry.properties.version
+              write-Output "$response.entry.properties.version"
+
+              if ($existingVersions -contains $moduleVersion) {
+                Write-Output "$moduleName versão $moduleVersion já publicada. Ignorando..."
+                continue
               }
+
+              Write-Output "Publicando $moduleName versão $moduleVersion..."
+              Publish-Module -Path $modulePath -NuGetApiKey $env:NUGET_KEY -Verbose
+
+            } catch {
+              Write-Error "Erro ao processar módulo $($manifestFile.FullName): $_"
+              continue
+            }
           }
