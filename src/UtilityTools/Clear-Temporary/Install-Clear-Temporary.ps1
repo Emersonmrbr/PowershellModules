@@ -43,9 +43,9 @@ function Install-Clear-Temporary {
   }
   # Check if the module folder already exists
   try {
-    # Perform file copy, excluding unwanted extensions
-    $excludeExtensions = @("*.md", "*.ps1", "*.bak")
-    Copy-Item -Path $Path -Destination $Destination -Force -Recurse -Exclude $excludeExtensions -ErrorAction Stop
+    # Perform file copy, including only specific extensions
+    $includeExtensions = @("*.psd1", "*.psm1", "*.xml", "*.txt")
+    Copy-Item -Path $Path -Destination $Destination -Force -Recurse -Include $includeExtensions -ErrorAction Stop
     # Copy the module files to the destination
     Write-Status "[OK] Clear-Temporary module installed from $Path" "OK"
     Write-Status "[OK] Clear-Temporary module installed at $Destination" "OK"

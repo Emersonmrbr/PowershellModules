@@ -43,9 +43,9 @@ function Install-Format-TextByRegex {
   }
 
   try {
-    # Perform file copy, excluding unwanted extensions
-    $excludeExtensions = @("*.md", "*.ps1", "*.bak")
-    Copy-Item -Path $Path -Destination $Destination -Force -Recurse -Exclude $excludeExtensions -ErrorAction Stop
+    # Perform file copy, including only specific extensions
+    $includeExtensions = @("*.psd1", "*.psm1", "*.xml", "*.txt")
+    Copy-Item -Path $Path -Destination $Destination -Force -Recurse -Include $includeExtensions -ErrorAction Stop
 
     Write-Status "[OK] Format-TextByRegex module installed from $Path" "OK"
     Write-Status "[OK] Format-TextByRegex module installed at $Destination" "OK"
