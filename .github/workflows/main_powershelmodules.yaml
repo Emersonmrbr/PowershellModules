@@ -60,10 +60,10 @@ jobs:
               $moduleVersion = $manifest.ModuleVersion
               $modulePath = $manifestFile.DirectoryName
 
-              Write-Output "Module: $moduleName | Version: $moduleVersion"
+              Write-Output "Check module: $moduleName and version: $moduleVersion"
 
               $response = Find-Module -Name $moduleName -ErrorAction Stop
-              write-output "Module name: $($response.Name) and version: $($response.Version)"
+              write-output "Module found in powershell gallery name: $($response.Name) and version: $($response.Version)"
 
               $existingVersions = $response.Version
 

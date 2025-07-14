@@ -9,8 +9,8 @@ then copies the module files (.psm1, .psd1, .xml) to that location. Instructions
 .NOTES
 File Name      : Install-Format-TextByRegex.ps1
 Author         : Emerson Martins Brito
-Module Version : 1.2.1
-Date           : 2025-07-04
+Module Version : 1.2.2
+Date           : 2025-07-14
 
 .EXAMPLE
 .\Install-Format-TextByRegex.ps1

@@ -11,7 +11,7 @@
   RootModule        = 'Format-TextByRegex.psm1'
 
   # Version number of this module.
-  ModuleVersion     = '1.2.1'
+  ModuleVersion     = '1.2.2'
 
   # Supported PSEditions
   # CompatiblePSEditions = @()
@@ -106,7 +106,7 @@
       # IconUri = ''
 
       # ReleaseNotes of this module
-      ReleaseNotes = '[1.2.0] - 2025-07-04'
+      ReleaseNotes = '[1.2.2] 2025-07-14 Change install .ps1.'
 
       # Prerelease string of this module
       # Prerelease = ''

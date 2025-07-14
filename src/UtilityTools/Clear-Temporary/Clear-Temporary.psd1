@@ -12,7 +12,7 @@
     RootModule        = 'Clear-Temporary.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '1.0.1'
+    ModuleVersion     = '1.0.2'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -107,7 +107,7 @@
             # IconUri = ''
 
             # ReleaseNotes of this module
-            ReleaseNotes = '[1.0.0] Initial release of Clear-Temporary module.'
+            ReleaseNotes = '[1.0.2] 2025-07-14 Change install .ps1.'
 
             # Prerelease string of this module
             # Prerelease = ''
