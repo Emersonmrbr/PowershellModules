@@ -67,6 +67,6 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
         shell: pwsh
         run: |
-          echo "$publish"
+          echo $publish
           Publish-Module -Path .\src\PlcTools\Format-TextByRegex -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
           Publish-Module -Path .\src\UtilityTools\Clear-Temporary -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
