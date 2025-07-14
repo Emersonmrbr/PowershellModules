@@ -9,8 +9,6 @@ on:
 jobs:
   test-and-publish-to-gallery:
     runs-on: ubuntu-latest
-    outputs:
-      publish: ${{ steps.verify.outputs.publish }}
 
     steps:
       - name: Checkout repository
@@ -64,11 +62,9 @@ jobs:
             write-output "Found module: $($res.Id) version $($res.Version)"
               if ($res.Version -eq $manifest.ModuleVersion) {
                 Write-Output "Module $($manifest.Name) version $($manifest.ModuleVersion) already exists in the gallery."
-                echo "publish=exist" >> "$GITHUB_OUTPUT"
                 } else {
                   Write-Output "Module $($manifest.Name) version $($manifest.ModuleVersion) is new or updated."
-                  echo "publish=notexist" >> "$GITHUB_OUTPUT"
-                  Publish-Module -Path $modules.DirectoryName -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
+                  Publish-Module -Path $module.DirectoryName -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
               }
             }
           }
