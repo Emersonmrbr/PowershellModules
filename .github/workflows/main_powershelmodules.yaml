@@ -60,7 +60,7 @@ jobs:
             write-output "Checking module: $($manifest.RootModule) version $($manifest.ModuleVersion)"
             foreach ($items in $response.properties) {
               foreach ($item in $items) {
-                write-output "Testing module: $($item)"
+                write-output "Testing module: $($item.id) version $($item.version)"
               }
             }
               if ($response.properties.version -eq $manifest.ModuleVersion) {
