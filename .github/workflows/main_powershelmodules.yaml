@@ -1,4 +1,4 @@
-name: Testar e Publicar Módulos PowerShell
+name: Test and Publish PowerShell Modules
 
 on:
   push:
@@ -7,30 +7,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  testar-e-publicar:
+  test-and-publish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do repositório
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Testar todos os manifestos
+      - name: Test all module manifests
         shell: pwsh
         run: |
           $manifests = Get-ChildItem -Path ./src -Include *.psd1 -Recurse
-          Write-Output "Encontrados $($manifests.Count) manifestos para teste."
+          Write-Output "Found $($manifests.Count) manifest files to test."
           foreach ($m in $manifests) {
-            Write-Output "Testando: $($m.FullName)"
+            Write-Output "Testing: $($m.FullName)"
             Test-ModuleManifest -Path $m.FullName -ErrorAction Stop
           }
 
-      - name: Instalar PSScriptAnalyzer
+      - name: Install PSScriptAnalyzer
         shell: pwsh
         run: |
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
           Install-Module PSScriptAnalyzer -ErrorAction Stop
 
-      - name: Analisar código com ScriptAnalyzer
+      - name: Analyze code with ScriptAnalyzer
         shell: pwsh
         run: |
           $issues = Invoke-ScriptAnalyzer -Path ./src/**/*.psm1 -Setting ./src/ScriptAnalyzerProfile.txt -Recurse
@@ -38,13 +38,13 @@ jobs:
           $warnings = $issues | Where-Object Severity -eq 'Warning'
 
           if ($errors) {
-            Write-Error "$($errors.Count) erros encontrados. $($warnings.Count) avisos."
+            Write-Error "Found $($errors.Count) errors and $($warnings.Count) warnings."
             exit 1
           } else {
-            Write-Output "Sem erros. $($warnings.Count) avisos encontrados."
+            Write-Output "No errors found. $($warnings.Count) warnings."
           }
 
-      - name: Verificar versão e publicar módulos (dinâmico)
+      - name: Check version and publish modules (dynamic)
         env:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
         shell: pwsh
@@ -53,31 +53,30 @@ jobs:
 
           foreach ($manifestFile in $manifests) {
             try {
-              Write-Output "Verificando módulo: $($manifestFile.FullName)"
+              Write-Output "Checking module: $($manifestFile.FullName)"
 
               $manifest = Import-PowerShellDataFile -Path $manifestFile.FullName
               $moduleName = $manifest.RootModule -replace '\.psm1$', ''
               $moduleVersion = $manifest.ModuleVersion
               $modulePath = $manifestFile.DirectoryName
 
-              Write-Output "Módulo: $moduleName | Versão: $moduleVersion"
+              Write-Output "Module: $moduleName | Version: $moduleVersion"
 
               $url = "https://www.powershellgallery.com/api/v2/FindPackagesById()?id='$moduleName'"
               $response = Invoke-RestMethod -Uri $url -ErrorAction Stop
 
               $existingVersions = $response.properties.version
-              write-Output "$response.properties.version encontrados"
 
               if ($existingVersions -contains $moduleVersion) {
-                Write-Output "$moduleName versão $moduleVersion já publicada. Ignorando..."
+                Write-Output "Module $moduleName v$moduleVersion is already published. Skipping..."
                 continue
               }
 
-              Write-Output "Publicando $moduleName versão $moduleVersion..."
+              Write-Output "Publishing $moduleName v$moduleVersion..."
               Publish-Module -Path $modulePath -NuGetApiKey $env:NUGET_KEY -Verbose
 
             } catch {
-              Write-Error "Erro ao processar módulo $($manifestFile.FullName): $_"
+              Write-Error "Error processing module $($manifestFile.FullName): $_"
               continue
             }
           }
