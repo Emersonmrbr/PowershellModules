@@ -55,15 +55,15 @@ jobs:
             $manifest = Import-PowerShellDataFile -Path $module.FullName
             $moduleName = $manifest.ModuleRoot -split('.psd1') 
             write-output "Module Name: $($moduleName)"
-            $uri = "https://www.powershellgallery.com/api/v2/FindPackagesById()?id='$$moduleName'" 
+            $uri = "https://www.powershellgallery.com/api/v2/FindPackagesById()?id='$moduleName'" 
             $response = Invoke-RestMethod -Uri $uri -Method Get
-            write-output "Checking module: $($manifest.Name) version $($manifest.ModuleVersion)"
+            write-output "Checking module: $($moduleName) version $($manifest.ModuleVersion)"
             foreach ($res in $response) {
             write-output "Found module: $($res.Id) version $($res.Version)"
               if ($res.Version -eq $manifest.ModuleVersion) {
-                Write-Output "Module $($manifest.Name) version $($manifest.ModuleVersion) already exists in the gallery."
+                Write-Output "Module $($moduleName) version $($manifest.ModuleVersion) already exists in the gallery."
                 } else {
-                  Write-Output "Module $($manifest.Name) version $($manifest.ModuleVersion) is new or updated."
+                  Write-Output "Module $($moduleName) version $($manifest.ModuleVersion) is new or updated."
                   Publish-Module -Path $module.DirectoryName -NuGetApiKey $env:NUGET_KEY -WhatIf -Verbose
               }
             }
