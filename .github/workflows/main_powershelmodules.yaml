@@ -73,7 +73,7 @@ jobs:
               }
 
               Write-Output "Publishing $moduleName v$moduleVersion..."
-              Publish-Module -Path $modulePath -NuGetApiKey $env:NUGET_KEY -Verbose
+              Publish-Module -Path $modulePath -NuGetApiKey $env:NUGET_KEY -Verbose -WhatIf
 
             } catch {
               Write-Error "Error processing module $($manifestFile.FullName): $_"
