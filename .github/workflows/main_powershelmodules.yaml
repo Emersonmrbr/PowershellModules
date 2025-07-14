@@ -48,7 +48,7 @@ jobs:
         id: verifify
         shell: pwsh
         run: |
-          $modules = Get-ChildItem -Path .\src\**\*.psd1
+          $modules = Get-ChildItem -Path .\src -Include *.psd1 -Recurse
           write-output "Found $($modules.Count) module manifests to verify."
           foreach ($module in $modules) {
             $manifest = Import-PowerShellDataFile -Path $module.FullName
