@@ -59,8 +59,8 @@ jobs:
             $response = Invoke-RestMethod -Uri $uri -Method Get
             write-output "Checking module: $($manifest.RootModule) version $($manifest.ModuleVersion)"
             # write-output "Checking module: $($response.properties.version) $($response.properties.Id) $($response.properties.title)"
-            foreach ($item in $response) {
-              write-output "Found module: $($item.properties.Id) version $($item.properties.version) title: $($item.properties.title)"
+            foreach ($item in $response.properties) {
+              write-output "Testing module: $($item)"
             }
               if ($response.properties.version -eq $manifest.ModuleVersion) {
                 Write-Output "Module $($manifest.ModuleRoot) version $($manifest.ModuleVersion) already exists in the gallery."
