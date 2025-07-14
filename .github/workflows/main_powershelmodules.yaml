@@ -23,10 +23,7 @@ jobs:
           write-output "Found $($modules.Count) module manifests to verify."
           foreach ($module in $modules) {
               Write-Output "Testing module: $($module.FullName)"
-              Test-ModuleManifest -Path $module.FullName
-              if (-not $manifest) {
-                  Write-Error "Failed to import manifest for module: $($module.FullName)" -ErrorAction Stop
-              }
+              Test-ModuleManifest -Path $module.FullName -ErrorAction Stop
           }
 
       - name: Install PSScriptAnalyzer module
